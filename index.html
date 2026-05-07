@@ -230,6 +230,94 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
 .act-hist-today .act-hist-lbl{color:var(--acc)}
 .act-hist-dot{width:24px;height:24px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--t3)}
 
+
+/* PROFILE */
+.prof-hero{background:var(--bg2);border:0.5px solid var(--b2);border-radius:var(--r3);padding:24px 20px;margin-bottom:14px;position:relative;overflow:hidden;text-align:center}
+.prof-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:var(--acc);opacity:.04}
+.prof-avatar{width:80px;height:80px;border-radius:50%;border:3px solid var(--acc);margin:0 auto 12px;display:block;object-fit:cover}
+.prof-avatar-placeholder{width:80px;height:80px;border-radius:50%;border:3px solid var(--acc);margin:0 auto 12px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:32px}
+.prof-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:28px;color:var(--t);letter-spacing:-.3px;margin-bottom:2px}
+.prof-email{font-size:11px;color:var(--t3);margin-bottom:16px}
+.prof-badges{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.prof-badge{display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:999px;font-size:11px;font-weight:600;border:0.5px solid}
+.prof-badge-acc{background:rgba(212,255,71,.1);color:var(--acc);border-color:rgba(212,255,71,.2)}
+.prof-badge-orange{background:rgba(251,146,60,.1);color:var(--orange);border-color:rgba(251,146,60,.2)}
+.prof-badge-blue{background:rgba(96,165,250,.1);color:var(--blue);border-color:rgba(96,165,250,.2)}
+.prof-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:14px}
+.prof-stat{background:var(--bg2);border:0.5px solid var(--b);border-radius:var(--r2);padding:14px 10px;text-align:center}
+.prof-stat-num{font-family:'Barlow Condensed',sans-serif;font-size:38px;font-weight:800;color:var(--acc);line-height:1}
+.prof-stat-lbl{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-top:3px;line-height:1.3}
+.prof-section{background:var(--bg2);border:0.5px solid var(--b);border-radius:var(--r2);padding:16px;margin-bottom:10px}
+.prof-section-title{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--t3);margin-bottom:12px}
+.prof-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:0.5px solid var(--b)}
+.prof-row:last-child{border-bottom:none}
+.prof-row-left{display:flex;align-items:center;gap:10px}
+.prof-row-ico{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.prof-row-label{font-size:13px;color:var(--t);font-weight:500}
+.prof-row-sub{font-size:11px;color:var(--t3);margin-top:1px}
+.prof-row-val{font-size:13px;font-weight:700;color:var(--acc)}
+.streak-bar{display:flex;gap:4px;margin-top:10px}
+.streak-day{flex:1;height:6px;border-radius:3px;background:var(--bg4)}
+.streak-day.done{background:var(--acc)}
+.streak-day.rest-s{background:var(--bg3)}
+.ring-wrap{position:relative;width:80px;height:80px}
+.ring-wrap svg{transform:rotate(-90deg)}
+.ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-pct{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:var(--acc);line-height:1}
+.ring-lbl{font-size:8px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px}
+
+
+/* 1RM TEST */
+.test-wrap{padding:14px 0}
+.test-hero{background:linear-gradient(135deg,rgba(212,255,71,.08),rgba(212,255,71,.02));border:0.5px solid rgba(212,255,71,.2);border-radius:var(--r3);padding:22px 18px;margin-bottom:14px;text-align:center}
+.test-icon{font-size:40px;margin-bottom:8px}
+.test-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:28px;color:var(--acc);letter-spacing:-.3px;margin-bottom:4px}
+.test-sub{font-size:12px;color:var(--t2);line-height:1.6;max-width:280px;margin:0 auto}
+.test-exlist{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.test-exitem{background:var(--bg2);border:0.5px solid var(--b);border-radius:var(--r2);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:border-color .2s}
+.test-exitem:hover{border-color:var(--b2)}
+.test-exitem.has-rm{border-color:rgba(74,222,128,.3)}
+.test-exleft{display:flex;align-items:center;gap:10px}
+.test-exico{width:34px;height:34px;border-radius:10px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.test-exname{font-size:14px;font-weight:600;color:var(--t)}
+.test-exsub{font-size:11px;color:var(--t3);margin-top:1px}
+.test-rm-badge{font-size:12px;font-weight:700;color:var(--green);background:rgba(74,222,128,.1);border:0.5px solid rgba(74,222,128,.2);padding:4px 10px;border-radius:999px}
+.test-rm-badge.pending{color:var(--t3);background:var(--bg3);border-color:var(--b)}
+
+.test-step{background:var(--bg2);border:0.5px solid var(--b2);border-radius:var(--r3);padding:20px;margin-bottom:12px}
+.test-step-num{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--acc);margin-bottom:4px}
+.test-step-title{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;color:var(--t);margin-bottom:8px}
+.test-step-body{font-size:13px;color:var(--t2);line-height:1.7}
+
+.warmup-series{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.warmup-row{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg3);border-radius:var(--r)}
+.warmup-pct{font-size:11px;font-weight:700;color:var(--acc);width:36px;flex-shrink:0}
+.warmup-peso{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:var(--t);flex:1}
+.warmup-reps{font-size:12px;color:var(--t2)}
+
+.test-inputs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.test-input-wrap{display:flex;flex-direction:column;gap:6px}
+.test-input-lbl{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:1px}
+.test-input-row{display:flex;align-items:center;gap:6px}
+.test-big-input{background:var(--bg3);border:0.5px solid var(--b2);border-radius:var(--r);color:var(--t);font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;width:100%;padding:10px 12px;text-align:center}
+.test-big-input:focus{outline:none;border-color:var(--acc)}
+.test-unit{font-size:12px;color:var(--t3)}
+
+.rir-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+.rir-btn{padding:14px 8px;background:var(--bg3);border:0.5px solid var(--b);border-radius:var(--r);color:var(--t2);font-size:13px;font-weight:600;cursor:pointer;text-align:center;transition:all .18s;font-family:'DM Sans',sans-serif}
+.rir-btn.selected{background:rgba(212,255,71,.12);border-color:var(--acc);color:var(--acc)}
+.rir-btn.invalid{background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.2);color:var(--red)}
+
+.rm-result{background:linear-gradient(135deg,rgba(212,255,71,.1),rgba(212,255,71,.03));border:0.5px solid rgba(212,255,71,.3);border-radius:var(--r3);padding:24px;text-align:center;margin:14px 0}
+.rm-result-label{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px}
+.rm-result-num{font-family:'Barlow Condensed',sans-serif;font-size:72px;font-weight:900;color:var(--acc);line-height:1}
+.rm-result-unit{font-size:18px;color:var(--t2);margin-bottom:16px}
+.rm-work-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px}
+.rm-work-item{background:var(--bg2);border-radius:var(--r);padding:10px;text-align:center}
+.rm-work-pct{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px}
+.rm-work-peso{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:var(--t)}
+.rm-work-uso{font-size:10px;color:var(--t2);margin-top:2px}
+
 /* BOTTOM NAV */
 .bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(13,13,13,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:0.5px solid var(--b);padding:8px 10px env(safe-area-inset-bottom,10px);display:flex;gap:3px;z-index:100}
 .nbtn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:var(--r);border:none;background:transparent;color:var(--t3);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:.2px;transition:all .18s}
@@ -266,7 +354,7 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
     <div class="logo">FITAPP</div>
     <div class="hright">
       <div class="wchip">Semana <b id="weekNum">1</b></div>
-      <div id="userAvatar" class="user-placeholder" onclick="showTab('stats',document.querySelectorAll('.nbtn')[2])">👤</div>
+      <div id="userAvatar" class="user-placeholder" onclick="showTab('perfil',document.querySelectorAll('.nbtn')[2])">👤</div>
     </div>
   </div>
   <div class="dstrip" id="dayStrip"></div>
@@ -277,9 +365,9 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
 <div class="bnav">
   <button class="nbtn active" onclick="showTab('rutina',this)"><span class="ni">🏋️</span>Rutina</button>
   <button class="nbtn" onclick="showTab('activacion',this)"><span class="ni">🍑</span>Activación</button>
-  <button class="nbtn" onclick="showTab('stats',this)"><span class="ni">📊</span>Stats</button>
+  <button class="nbtn" onclick="showTab('perfil',this)"><span class="ni">👤</span>Perfil</button>
   <button class="nbtn" onclick="showTab('medidas',this)"><span class="ni">📏</span>Medidas</button>
-  <button class="nbtn" onclick="showTab('tips',this)"><span class="ni">💡</span>Estudio</button>
+  <button class="nbtn" onclick="showTab('test',this)"><span class="ni">🧪</span>Test</button>
 </div>
 
 <!-- FIREBASE -->
@@ -568,6 +656,8 @@ const TYPE_LABEL = {empuje:'Empuje',jale:'Jale',piernas:'Piernas',gluteos:'Glút
 
 // ── STATE ─────────────────────────────────────────────────────────
 let curDay  = (()=>{ let d=new Date().getDay(); return d===0?6:d-1; })();
+let oneRM   = {};  // {exKey: value} — guarda el 1RM por ejercicio
+let testState = null; // estado actual del test de 1RM
 let weekNum = 1;
 let checked = {};
 let actChk  = {};
@@ -759,6 +849,8 @@ window.showTab=(tab,btn)=>{
   if(tab==='rutina'){buildStrip();renderWorkout();}
   else if(tab==='activacion') renderActPage();
   else if(tab==='stats') renderStats();
+  else if(tab==='perfil') renderProfile();
+  else if(tab==='test') renderTestPage();
   else if(tab==='medidas') renderMedidas();
   else renderTips();
 };
@@ -815,6 +907,391 @@ function renderActPage(){
       <div class="tipbody">Pon una alarma cada 45-60 min mientras trabajas sentado. Levántate, haz la rutina completa (3-4 min) y toca "Nueva ronda". Cada ronda cuenta.</div>
     </div></div>`;
   document.getElementById('main').innerHTML=h;
+}
+
+
+
+// ── 1RM TEST SYSTEM ───────────────────────────────────────────────
+// Ejercicios clave que necesitan test de 1RM
+const KEY_EXERCISES = [
+  {key:'press_banca',     name:'Press banca con barra',       icon:'🏋️', dayIdx:0, exIdx:0, baseKg:20},
+  {key:'press_inclinado', name:'Press inclinado con barra',   icon:'📐', dayIdx:5, exIdx:0, baseKg:20},
+  {key:'press_militar',   name:'Press militar con mancuernas',icon:'🎯', dayIdx:0, exIdx:3, baseKg:8},
+  {key:'dominadas',       name:'Dominadas agarre prono',      icon:'💪', dayIdx:1, exIdx:0, baseKg:0},
+  {key:'remo_uni',        name:'Remo unilateral mancuerna',   icon:'🔄', dayIdx:1, exIdx:2, baseKg:12},
+  {key:'sentadilla',      name:'Sentadilla con barra',        icon:'🦵', dayIdx:2, exIdx:0, baseKg:20},
+  {key:'rdl',             name:'Peso muerto rumano',          icon:'⚡', dayIdx:2, exIdx:1, baseKg:12},
+  {key:'hip_thrust',      name:'Hip Thrust con barra',        icon:'🍑', dayIdx:4, exIdx:0, baseKg:20},
+  {key:'bulg_squat',      name:'Sentadilla búlgara',          icon:'🔥', dayIdx:4, exIdx:1, baseKg:6},
+];
+
+function calc1RM(peso, reps){ return Math.round(peso * (1 + 0.0333 * reps)); }
+
+function calcWarmupSeries(rm){
+  const base = rm || 40;
+  return [
+    {pct:40, reps:8,  peso: Math.round(base*0.40/2.5)*2.5},
+    {pct:60, reps:5,  peso: Math.round(base*0.60/2.5)*2.5},
+    {pct:75, reps:3,  peso: Math.round(base*0.75/2.5)*2.5},
+  ];
+}
+
+function getWorkWeight(exKey, pct){
+  const rm = oneRM[exKey];
+  if(!rm) return null;
+  return Math.round(rm*(pct/100)/2.5)*2.5;
+}
+
+// ── RENDER TEST PAGE ──────────────────────────────────────────────
+function renderTestPage(){
+  testState = testState || {step:'list', exKey:null, peso:null, reps:null, rir:null};
+  if(testState.step==='list')     renderTestList();
+  else if(testState.step==='warmup') renderTestWarmup();
+  else if(testState.step==='test')   renderTestMain();
+  else if(testState.step==='result') renderTestResult();
+}
+
+function renderTestList(){
+  let h=`<div class="test-wrap fade">
+    <div class="test-hero">
+      <div class="test-icon">🧪</div>
+      <div class="test-title">Test de Fuerza</div>
+      <div class="test-sub">Elige un ejercicio para testear tu 1RM estimado. La app calculará todos tus pesos automáticamente.</div>
+    </div>
+    <div class="slbl">Ejercicios clave</div>
+    <div class="test-exlist">`;
+
+  KEY_EXERCISES.forEach(ex=>{
+    const rm = oneRM[ex.key];
+    const badge = rm
+      ? `<div class="test-rm-badge">1RM: ${rm}kg</div>`
+      : `<div class="test-rm-badge pending">Sin test</div>`;
+    h+=`<div class="test-exitem${rm?' has-rm':''}" onclick="startTest('${ex.key}')">
+      <div class="test-exleft">
+        <div class="test-exico">${ex.icon}</div>
+        <div>
+          <div class="test-exname">${ex.name}</div>
+          <div class="test-exsub">${rm?'Toca para re-testear':'Toca para hacer el test'}</div>
+        </div>
+      </div>
+      ${badge}
+    </div>`;
+  });
+  h+=`</div>
+    <div class="tipcard">
+      <div class="tipctitle"><div class="tipnum">!</div>¿Cada cuánto hacer el test?</div>
+      <div class="tipbody">Principiante: cada 6-8 semanas · Intermedio: cada 4-6 semanas · Avanzado: cada 3-4 semanas. El test re-calibra todos tus pesos automáticamente.</div>
+    </div>
+  </div>`;
+  document.getElementById('main').innerHTML=h;
+}
+
+window.startTest=(exKey)=>{
+  testState={step:'warmup', exKey, peso:null, reps:null, rir:null};
+  renderTestPage();
+};
+
+function renderTestWarmup(){
+  const ex = KEY_EXERCISES.find(e=>e.key===testState.exKey);
+  const prevRM = oneRM[testState.exKey];
+  const baseRM = prevRM || (ex.baseKg>0 ? ex.baseKg*3 : 40);
+  const series = calcWarmupSeries(baseRM);
+
+  let seriesHTML='<div class="warmup-series">';
+  series.forEach(s=>{
+    seriesHTML+=`<div class="warmup-row">
+      <div class="warmup-pct">${s.pct}%</div>
+      <div class="warmup-peso">${s.peso>0?s.peso+'kg':'Peso corporal'}</div>
+      <div class="warmup-reps">${s.reps} reps</div>
+    </div>`;
+  });
+  seriesHTML+='</div>';
+
+  document.getElementById('main').innerHTML=`<div class="test-wrap fade">
+    <div class="test-step">
+      <div class="test-step-num">Paso 1 de 3 · ${ex.icon} ${ex.name}</div>
+      <div class="test-step-title">Calentamiento específico</div>
+      <div class="test-step-body">Haz estas series antes del test. Descansa 90 seg entre cada una.</div>
+      ${seriesHTML}
+    </div>
+    <div class="tipcard">
+      <div class="tipctitle"><div class="tipnum">!</div>¿Por qué calentar?</div>
+      <div class="tipbody">El calentamiento específico prepara el sistema nervioso y las articulaciones para el patrón de movimiento exacto. Mejora el rendimiento 10-15% y reduce lesiones.</div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:4px">
+      <button class="btn-out" onclick="testState.step='list';renderTestPage()">← Volver</button>
+      <button class="mbtn" style="flex:2" onclick="testState.step='test';renderTestPage()">✅ Listo, hacer el test →</button>
+    </div>
+  </div>`;
+}
+
+function renderTestMain(){
+  const ex = KEY_EXERCISES.find(e=>e.key===testState.exKey);
+  const rirSel = testState.rir;
+  const rirOpts = [
+    {val:0, label:'0', sub:'Al fallo'},
+    {val:1, label:'1', sub:'1 rep más'},
+    {val:2, label:'2', sub:'2 reps más'},
+    {val:'3+', label:'3+', sub:'Muy fácil', invalid:true},
+  ];
+
+  document.getElementById('main').innerHTML=`<div class="test-wrap fade">
+    <div class="test-step">
+      <div class="test-step-num">Paso 2 de 3 · ${ex.icon} ${ex.name}</div>
+      <div class="test-step-title">Test principal</div>
+      <div class="test-step-body">Elige un peso con el que puedas hacer <b style="color:var(--acc)">entre 3 y 8 reps</b>. Haz las máximas reps que puedas con buena técnica.</div>
+    </div>
+    <div class="test-inputs">
+      <div class="test-input-wrap">
+        <div class="test-input-lbl">Peso usado</div>
+        <div class="test-input-row">
+          <input class="test-big-input" type="number" inputmode="decimal" placeholder="—"
+            value="${testState.peso||''}" oninput="testState.peso=parseFloat(this.value)||null"/>
+          <span class="test-unit">kg</span>
+        </div>
+      </div>
+      <div class="test-input-wrap">
+        <div class="test-input-lbl">Reps hechas</div>
+        <div class="test-input-row">
+          <input class="test-big-input" type="number" inputmode="numeric" placeholder="—"
+            value="${testState.reps||''}" oninput="testState.reps=parseInt(this.value)||null"/>
+          <span class="test-unit">reps</span>
+        </div>
+      </div>
+    </div>
+    <div class="test-step" style="margin-top:4px">
+      <div class="test-step-num">RIR — Reps en reserva</div>
+      <div class="test-step-title">¿Cuántas reps más podías?</div>
+      <div class="rir-grid">
+        ${rirOpts.map(o=>`<div class="rir-btn${rirSel===o.val?' selected':''}${o.invalid?' invalid':''}"
+          onclick="testState.rir=${typeof o.val==='string'?"'"+o.val+"'":o.val};renderTestPage()">
+          <div style="font-size:20px;font-weight:800">${o.label}</div>
+          <div style="font-size:10px;margin-top:2px">${o.sub}</div>
+        </div>`).join('')}
+      </div>
+      ${testState.rir==='3+' ? '<div style="font-size:12px;color:var(--red);margin-top:4px">⚠️ Con RIR 3+ el test no es válido. Usa más peso o haz más reps.</div>' : ''}
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="btn-out" onclick="testState.step='warmup';renderTestPage()">← Volver</button>
+      <button class="mbtn" style="flex:2" onclick="validateAndCalc()">Calcular mi 1RM →</button>
+    </div>
+  </div>`;
+}
+
+window.validateAndCalc=()=>{
+  const p=testState.peso; const r=testState.reps; const rir=testState.rir;
+  if(!p||p<=0) return alert('Ingresa el peso usado.');
+  if(!r||r<=0) return alert('Ingresa las reps hechas.');
+  if(rir===null||rir===undefined) return alert('Selecciona el RIR.');
+  if(r<3||r>8){ alert('El test es válido entre 3 y 8 reps. Ajusta el peso.'); return; }
+  if(rir==='3+') return alert('Con RIR 3+ el test no es válido. Usa más peso.');
+  // Ajustar reps con RIR para 1RM más preciso
+  const totalReps = r + (typeof rir==='number'?rir:3);
+  const rm = calc1RM(p, totalReps);
+  oneRM[testState.exKey] = rm;
+  testState.rm = rm;
+  testState.step = 'result';
+  if(window.saveToCloud) window.saveToCloud();
+  renderTestPage();
+};
+
+function renderTestResult(){
+  const ex  = KEY_EXERCISES.find(e=>e.key===testState.exKey);
+  const rm  = testState.rm;
+  const w80 = Math.round(rm*0.80/2.5)*2.5;
+  const w75 = Math.round(rm*0.75/2.5)*2.5;
+  const w70 = Math.round(rm*0.70/2.5)*2.5;
+  const warmup = calcWarmupSeries(rm);
+
+  let warmupHTML='<div class="warmup-series">';
+  warmup.forEach(s=>{
+    warmupHTML+=`<div class="warmup-row">
+      <div class="warmup-pct">${s.pct}%</div>
+      <div class="warmup-peso">${s.peso>0?s.peso+'kg':'Peso corporal'}</div>
+      <div class="warmup-reps">${s.reps} reps</div>
+    </div>`;
+  });
+  warmupHTML+='</div>';
+
+  document.getElementById('main').innerHTML=`<div class="test-wrap fade">
+    <div class="rm-result">
+      <div class="rm-result-label">Tu 1RM estimado</div>
+      <div class="rm-result-num">${rm}</div>
+      <div class="rm-result-unit">kg · ${ex.name}</div>
+      <div class="rm-work-grid">
+        <div class="rm-work-item">
+          <div class="rm-work-pct">Fuerza 80%</div>
+          <div class="rm-work-peso">${w80}kg</div>
+          <div class="rm-work-uso">4×5 reps</div>
+        </div>
+        <div class="rm-work-item">
+          <div class="rm-work-pct">Hipertrofia 75%</div>
+          <div class="rm-work-peso">${w75}kg</div>
+          <div class="rm-work-uso">4×8-10 reps</div>
+        </div>
+        <div class="rm-work-item">
+          <div class="rm-work-pct">Volumen 70%</div>
+          <div class="rm-work-peso">${w70}kg</div>
+          <div class="rm-work-uso">3×12 reps</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-step">
+      <div class="test-step-num">Tu calentamiento específico</div>
+      <div class="test-step-title">Antes de cada sesión</div>
+      <div class="test-step-body">Estas series preparan tu sistema nervioso para el peso de trabajo.</div>
+      ${warmupHTML}
+    </div>
+
+    <button class="mbtn" style="margin-bottom:10px" onclick="testState={step:'list',exKey:null,peso:null,reps:null,rir:null};renderTestPage()">
+      ✅ Guardar y volver al test
+    </button>
+    <button class="btn-out" onclick="showTab('rutina',document.querySelectorAll('.nbtn')[0])">
+      🏋️ Ir a entrenar
+    </button>
+  </div>`;
+}
+
+// ── PROFILE PAGE ──────────────────────────────────────────────────
+function renderProfile(){
+  const user = currentUser;
+  const name  = user ? (user.displayName || 'Atleta') : 'Atleta';
+  const email = user ? (user.email || '') : '';
+  const photo = user ? user.photoURL : null;
+
+  const streak   = calcStreak();
+  const weekTotal= DAYS.reduce((a,d)=>a+d.exercises.length,0);
+  const weekDone = DAYS.reduce((a,d,di)=>a+d.exercises.filter((_,ei)=>checked[`${weekNum}_${di}_${ei}`]).length,0);
+  const weekPct  = weekTotal>0?Math.round((weekDone/weekTotal)*100):0;
+  let totalEver  = Object.values(checked).filter(Boolean).length;
+
+  let actWeek=0;
+  for(let dd=0;dd<7;dd++){
+    const dt=new Date(); dt.setDate(dt.getDate()-dd);
+    const dk=dt.toDateString();
+    if(ACTIVATION.items.every((_,i)=>actChk[`act_${dk}_${i}`])) actWeek++;
+    let rr=1;
+    while(ACTIVATION.items.every((_,i)=>actChk[`act_${dk}_r${rr}_${i}`])){ actWeek++; rr++; }
+  }
+
+  // Streak bar últimos 7 días
+  let streakBars='<div class="streak-bar">';
+  for(let dd=6;dd>=0;dd--){
+    const dt=new Date(); dt.setDate(dt.getDate()-dd);
+    const dayIdx=dt.getDay()===0?6:dt.getDay()-1;
+    const dayData=DAYS[dayIdx];
+    let cls='streak-day';
+    if(dayData.rest) cls+=' rest-s';
+    else{
+      const anyDone=dayData.exercises.some((_,ei)=>checked[`${weekNum}_${dayIdx}_${ei}`]);
+      if(anyDone) cls+=' done';
+    }
+    streakBars+=`<div class="${cls}"></div>`;
+  }
+  streakBars+='</div>';
+
+  // Ring SVG
+  const R=34; const CIRC=2*Math.PI*R;
+  const dash=(CIRC*(weekPct/100)).toFixed(1);
+  const ringHTML=`<div class="ring-wrap">
+    <svg width="80" height="80" viewBox="0 0 80 80">
+      <circle cx="40" cy="40" r="${R}" fill="none" stroke="var(--bg3)" stroke-width="6"/>
+      <circle cx="40" cy="40" r="${R}" fill="none" stroke="var(--acc)" stroke-width="6"
+        stroke-dasharray="${dash} ${CIRC.toFixed(1)}" stroke-linecap="round"/>
+    </svg>
+    <div class="ring-center"><div class="ring-pct">${weekPct}%</div><div class="ring-lbl">semana</div></div>
+  </div>`;
+
+  const avatarHTML = photo
+    ? `<img src="${photo}" class="prof-avatar" alt="foto"/>`
+    : `<div class="prof-avatar-placeholder">💪</div>`;
+
+  const nivel = weekNum<=4?'Principiante':weekNum<=8?'Intermedio':'Avanzado';
+  const nivelCls = weekNum<=4?'prof-badge-blue':weekNum<=8?'prof-badge-orange':'prof-badge-acc';
+
+  // Rondas de activación hoy
+  const tk=todayKey();
+  let roundsHoy=0;
+  if(ACTIVATION.items.every((_,i)=>actChk[`act_${tk}_${i}`])) roundsHoy++;
+  let rrh=1;
+  while(ACTIVATION.items.every((_,i)=>actChk[`act_${tk}_r${rrh}_${i}`])){ roundsHoy++; rrh++; }
+
+  document.getElementById('main').innerHTML=`<div class="fade" style="padding:14px 0">
+
+    <div class="prof-hero">
+      ${avatarHTML}
+      <div class="prof-name">${name}</div>
+      <div class="prof-email">${email}</div>
+      <div class="prof-badges">
+        <div class="prof-badge prof-badge-acc">🏋️ Semana ${weekNum}</div>
+        <div class="prof-badge ${nivelCls}">⚡ ${nivel}</div>
+        ${streak>2?`<div class="prof-badge prof-badge-orange">🔥 ${streak} días racha</div>`:''}
+      </div>
+    </div>
+
+    <div class="prof-grid">
+      <div class="prof-stat"><div class="prof-stat-num">${streak}</div><div class="prof-stat-lbl">Días racha</div></div>
+      <div class="prof-stat"><div class="prof-stat-num">${totalEver}</div><div class="prof-stat-lbl">Ejercicios totales</div></div>
+      <div class="prof-stat"><div class="prof-stat-num">${actWeek}</div><div class="prof-stat-lbl">Activaciones semana</div></div>
+    </div>
+
+    <div class="prof-section">
+      <div class="prof-section-title">Progreso esta semana</div>
+      <div style="display:flex;align-items:center;gap:16px">
+        ${ringHTML}
+        <div style="flex:1">
+          <div style="font-size:13px;color:var(--t);margin-bottom:6px"><b>${weekDone}</b> de <b>${weekTotal}</b> ejercicios</div>
+          ${streakBars}
+          <div style="font-size:10px;color:var(--t3);margin-top:6px">Últimos 7 días · Lima = entrenaste</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prof-section">
+      <div class="prof-section-title">Mi programa</div>
+      <div class="prof-row">
+        <div class="prof-row-left">
+          <div class="prof-row-ico" style="background:rgba(212,255,71,.1)">📅</div>
+          <div><div class="prof-row-label">Semana actual</div><div class="prof-row-sub">Programa de 5 días</div></div>
+        </div>
+        <div class="prof-row-val">Sem ${weekNum}</div>
+      </div>
+      <div class="prof-row">
+        <div class="prof-row-left">
+          <div class="prof-row-ico" style="background:rgba(251,146,60,.1)">🍑</div>
+          <div><div class="prof-row-label">Activaciones hoy</div><div class="prof-row-sub">Meta: 4-6 rondas/día</div></div>
+        </div>
+        <div class="prof-row-val">${roundsHoy}</div>
+      </div>
+      <div class="prof-row">
+        <div class="prof-row-left">
+          <div class="prof-row-ico" style="background:rgba(74,222,128,.1)">📏</div>
+          <div><div class="prof-row-label">Registros de medidas</div><div class="prof-row-sub">Histórico corporal</div></div>
+        </div>
+        <div class="prof-row-val">${bodyMeas.length}</div>
+      </div>
+    </div>
+
+    <div class="prof-section">
+      <div class="prof-section-title">Cuenta</div>
+      <div class="prof-row">
+        <div class="prof-row-left">
+          <div class="prof-row-ico" style="background:rgba(96,165,250,.1)">☁️</div>
+          <div><div class="prof-row-label">Sincronización</div><div class="prof-row-sub">Firebase Firestore</div></div>
+        </div>
+        <div class="prof-row-val" style="color:var(--green)">Activa</div>
+      </div>
+      <div class="prof-row" style="cursor:pointer" onclick="doSignOut()">
+        <div class="prof-row-left">
+          <div class="prof-row-ico" style="background:rgba(248,113,113,.1)">🚪</div>
+          <div><div class="prof-row-label" style="color:var(--red)">Cerrar sesión</div><div class="prof-row-sub">${email}</div></div>
+        </div>
+        <div style="color:var(--t3);font-size:18px">›</div>
+      </div>
+    </div>
+
+  </div>`;
 }
 
 // ── STATS ─────────────────────────────────────────────────────────
@@ -945,7 +1422,7 @@ onAuthStateChanged(auth, async (user) => {
     // Avatar
     const av = document.getElementById('userAvatar');
     if(user.photoURL){
-      av.innerHTML = `<img src="${user.photoURL}" class="user-avatar" onclick="showTab('stats',document.querySelectorAll('.nbtn')[2])"/>`;
+      av.innerHTML = `<img src="${user.photoURL}" class="user-avatar" onclick="showTab('perfil',document.querySelectorAll('.nbtn')[2])"/>`;
     } else {
       av.textContent = user.displayName ? user.displayName[0].toUpperCase() : '👤';
     }
@@ -970,6 +1447,7 @@ async function loadFromCloud(){
     if(snap.exists()){
       const data = snap.data();
       if(data.checked)   checked  = data.checked;
+      if(data.oneRM)     oneRM    = data.oneRM;
       if(data.actChk)    actChk   = data.actChk;
       if(data.weights)   weights  = data.weights;
       if(data.bodyMeas)  bodyMeas = data.bodyMeas;
@@ -985,7 +1463,7 @@ window.saveToCloud = async () => {
   saveTimeout = setTimeout(async ()=>{
     try {
       await setDoc(doc(db, 'users', currentUser.uid), {
-        checked, actChk, weights, bodyMeas, weekNum,
+        checked, actChk, weights, bodyMeas, weekNum, oneRM,
         updatedAt: new Date().toISOString()
       });
       showSyncBar('saved');
@@ -1036,6 +1514,9 @@ window.prevWeek         = prevWeek;
 window.nextWeek         = nextWeek;
 window.resetWeek        = resetWeek;
 window.resetActRound    = resetActRound;
+window.renderProfile    = renderProfile;
+window.startTest        = startTest;
+window.validateAndCalc  = validateAndCalc;
 
 </script>
 </body>
