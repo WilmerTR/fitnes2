@@ -657,7 +657,7 @@ const TYPE_LABEL = {empuje:'Empuje',jale:'Jale',piernas:'Piernas',gluteos:'Glút
 // ── STATE ─────────────────────────────────────────────────────────
 let curDay  = (()=>{ let d=new Date().getDay(); return d===0?6:d-1; })();
 let oneRM   = {};  // {exKey: value} — guarda el 1RM por ejercicio
-let testState = null; // estado actual del test de 1RM
+window.testState = null; // estado actual
 let weekNum = 1;
 let checked = {};
 let actChk  = {};
@@ -1017,11 +1017,11 @@ function getWorkWeight(exKey, pct){
 
 // ── RENDER TEST PAGE ──────────────────────────────────────────────
 function renderTestPage(){
-  testState = testState || {step:'list', exKey:null, peso:null, reps:null, rir:null};
-  if(testState.step==='list')     renderTestList();
-  else if(testState.step==='warmup') renderTestWarmup();
-  else if(testState.step==='test')   renderTestMain();
-  else if(testState.step==='result') renderTestResult();
+  window.testState = window.testState || {step:'list', exKey:null, peso:null, reps:null, rir:null};
+  if(window.testState.step==='list')     renderTestList();
+  else if(window.testState.step==='warmup') renderTestWarmup();
+  else if(window.testState.step==='test')   renderTestMain();
+  else if(window.testState.step==='result') renderTestResult();
 }
 
 function renderTestList(){
@@ -1060,13 +1060,13 @@ function renderTestList(){
 }
 
 window.startTest=(exKey)=>{
-  testState={step:'warmup', exKey, peso:null, reps:null, rir:null};
+  window.testState={step:'warmup', exKey, peso:null, reps:null, rir:null};
   renderTestPage();
 };
 
 function renderTestWarmup(){
-  const ex = KEY_EXERCISES.find(e=>e.key===testState.exKey);
-  const prevRM = oneRM[testState.exKey];
+  const ex = KEY_EXERCISES.find(e=>e.key===window.testState.exKey);
+  const prevRM = oneRM[window.testState.exKey];
   const baseRM = prevRM || (ex.baseKg>0 ? ex.baseKg*3 : 40);
   const series = calcWarmupSeries(baseRM);
 
@@ -1092,15 +1092,15 @@ function renderTestWarmup(){
       <div class="tipbody">El calentamiento específico prepara el sistema nervioso y las articulaciones para el patrón de movimiento exacto. Mejora el rendimiento 10-15% y reduce lesiones.</div>
     </div>
     <div style="display:flex;gap:8px;margin-top:4px">
-      <button class="btn-out" onclick="testState.step='list';renderTestPage()">← Volver</button>
-      <button class="mbtn" style="flex:2" onclick="testState.step='test';renderTestPage()">✅ Listo, hacer el test →</button>
+      <button class="btn-out" onclick="window.testState.step='list';window.renderTestPage()">← Volver</button>
+      <button class="mbtn" style="flex:2" onclick="window.testState.step='test';window.renderTestPage()">✅ Listo, hacer el test →</button>
     </div>
   </div>`;
 }
 
 function renderTestMain(){
-  const ex = KEY_EXERCISES.find(e=>e.key===testState.exKey);
-  const rirSel = testState.rir;
+  const ex = KEY_EXERCISES.find(e=>e.key===window.testState.exKey);
+  const rirSel = window.testState.rir;
   const rirOpts = [
     {val:0, label:'0', sub:'Al fallo'},
     {val:1, label:'1', sub:'1 rep más'},
@@ -1119,7 +1119,7 @@ function renderTestMain(){
         <div class="test-input-lbl">Peso usado</div>
         <div class="test-input-row">
           <input class="test-big-input" type="number" inputmode="decimal" placeholder="—"
-            value="${testState.peso||''}" oninput="testState.peso=parseFloat(this.value)||null"/>
+            value="${testState.peso||''}" oninput="window.testState.peso=parseFloat(this.value)||null"/>
           <span class="test-unit">kg</span>
         </div>
       </div>
@@ -1127,7 +1127,7 @@ function renderTestMain(){
         <div class="test-input-lbl">Reps hechas</div>
         <div class="test-input-row">
           <input class="test-big-input" type="number" inputmode="numeric" placeholder="—"
-            value="${testState.reps||''}" oninput="testState.reps=parseInt(this.value)||null"/>
+            value="${testState.reps||''}" oninput="window.testState.reps=parseInt(this.value)||null"/>
           <span class="test-unit">reps</span>
         </div>
       </div>
@@ -1137,22 +1137,22 @@ function renderTestMain(){
       <div class="test-step-title">¿Cuántas reps más podías?</div>
       <div class="rir-grid">
         ${rirOpts.map(o=>`<div class="rir-btn${rirSel===o.val?' selected':''}${o.invalid?' invalid':''}"
-          onclick="testState.rir=${typeof o.val==='string'?"'"+o.val+"'":o.val};renderTestPage()">
+          onclick="window.testState.rir=${typeof o.val==='string'?"'"+o.val+"'":o.val};renderTestPage()">
           <div style="font-size:20px;font-weight:800">${o.label}</div>
           <div style="font-size:10px;margin-top:2px">${o.sub}</div>
         </div>`).join('')}
       </div>
-      ${testState.rir==='3+' ? '<div style="font-size:12px;color:var(--red);margin-top:4px">⚠️ Con RIR 3+ el test no es válido. Usa más peso o haz más reps.</div>' : ''}
+      ${window.testState.rir==='3+' ? '<div style="font-size:12px;color:var(--red);margin-top:4px">⚠️ Con RIR 3+ el test no es válido. Usa más peso o haz más reps.</div>' : ''}
     </div>
     <div style="display:flex;gap:8px;margin-top:8px">
-      <button class="btn-out" onclick="testState.step='warmup';renderTestPage()">← Volver</button>
+      <button class="btn-out" onclick="window.testState.step='warmup';window.renderTestPage()">← Volver</button>
       <button class="mbtn" style="flex:2" onclick="validateAndCalc()">Calcular mi 1RM →</button>
     </div>
   </div>`;
 }
 
 window.validateAndCalc=()=>{
-  const p=testState.peso; const r=testState.reps; const rir=testState.rir;
+  const p=window.testState.peso; const r=window.testState.reps; const rir=window.testState.rir;
   if(!p||p<=0) return alert('Ingresa el peso usado.');
   if(!r||r<=0) return alert('Ingresa las reps hechas.');
   if(rir===null||rir===undefined) return alert('Selecciona el RIR.');
@@ -1161,16 +1161,16 @@ window.validateAndCalc=()=>{
   // Ajustar reps con RIR para 1RM más preciso
   const totalReps = r + (typeof rir==='number'?rir:3);
   const rm = calc1RM(p, totalReps);
-  oneRM[testState.exKey] = rm;
-  testState.rm = rm;
-  testState.step = 'result';
+  oneRM[window.testState.exKey] = rm;
+  window.testState.rm = rm;
+  window.testState.step = 'result';
   if(window.saveToCloud) window.saveToCloud();
   renderTestPage();
 };
 
 function renderTestResult(){
-  const ex  = KEY_EXERCISES.find(e=>e.key===testState.exKey);
-  const rm  = testState.rm;
+  const ex  = KEY_EXERCISES.find(e=>e.key===window.testState.exKey);
+  const rm  = window.testState.rm;
   const w80 = Math.round(rm*0.80/2.5)*2.5;
   const w75 = Math.round(rm*0.75/2.5)*2.5;
   const w70 = Math.round(rm*0.70/2.5)*2.5;
@@ -1217,7 +1217,7 @@ function renderTestResult(){
       ${warmupHTML}
     </div>
 
-    <button class="mbtn" style="margin-bottom:10px" onclick="testState={step:'list',exKey:null,peso:null,reps:null,rir:null};renderTestPage()">
+    <button class="mbtn" style="margin-bottom:10px" onclick="window.testState={step:'list',exKey:null,peso:null,reps:null,rir:null};window.renderTestPage()">
       ✅ Guardar y volver al test
     </button>
     <button class="btn-out" onclick="showTab('rutina',document.querySelectorAll('.nbtn')[0])">
