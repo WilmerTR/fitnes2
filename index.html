@@ -685,6 +685,69 @@ function buildStrip(){
 }
 
 
+// ── SERIES BOX — shown inside each exercise in daily workout ─────
+function seriesBox(dayIdx, exIdx, ex){
+  const rmKey = EX_RM_MAP[`${dayIdx}_${exIdx}`];
+  const rm    = rmKey ? oneRM[rmKey] : null;
+
+  // ── Ejercicio CLAVE con 1RM disponible ──────────────────────────
+  if(ex.key && rm){
+    const pesoTrabajo = Math.round(rm*0.75/2.5)*2.5;
+    const pesoCalA    = Math.round(rm*0.30/2.5)*2.5 || 20; // barra o mínimo
+    const pesoCalB    = Math.round(pesoTrabajo*0.85/2.5)*2.5;
+
+    return `<div style="margin:12px 0">
+      <!-- PREPÁRATE -->
+      <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:6px">🔥 Prepárate</div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px">
+        <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(251,146,60,.06);border:0.5px solid rgba(251,146,60,.15);border-radius:var(--r)">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:var(--orange);width:50px">${pesoCalA}kg</div>
+          <div style="font-size:12px;color:var(--t2)">× 15 reps — activa el patrón de movimiento</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(251,146,60,.06);border:0.5px solid rgba(251,146,60,.15);border-radius:var(--r)">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:var(--orange);width:50px">${pesoCalB}kg</div>
+          <div style="font-size:12px;color:var(--t2)">× 5 reps — prepara el sistema nervioso</div>
+        </div>
+      </div>
+      <!-- SERIES DE TRABAJO -->
+      <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--acc);margin-bottom:6px">💪 Tu peso hoy — ${pesoTrabajo}kg (75% de ${rm}kg)</div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(212,255,71,.06);border:0.5px solid rgba(212,255,71,.15);border-radius:var(--r)">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:var(--acc);width:50px">${pesoTrabajo}kg</div>
+          <div style="font-size:12px;color:var(--t2)">× 8-10 reps · Serie 1</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(212,255,71,.06);border:0.5px solid rgba(212,255,71,.15);border-radius:var(--r)">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:var(--acc);width:50px">${pesoTrabajo}kg</div>
+          <div style="font-size:12px;color:var(--t2)">× 8-10 reps · Serie 2</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(212,255,71,.1);border:0.5px solid rgba(212,255,71,.3);border-radius:var(--r)">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:var(--acc);width:50px">${pesoTrabajo}kg</div>
+          <div style="flex:1">
+            <div style="font-size:12px;color:var(--t);font-weight:600">× AMRAP · Serie final 🔥</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:2px">AMRAP = todas las reps que puedas con buena técnica. Para cuando no puedas más o tu forma falle.</div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:10px;color:var(--t3);margin-top:8px;text-align:right;cursor:pointer" onclick="showTab('test',document.querySelectorAll('.nbtn')[4])">Re-testear 1RM →</div>
+    </div>`;
+  }
+
+  // ── Ejercicio CLAVE sin 1RM ─────────────────────────────────────
+  if(ex.key && !rm){
+    return `<div style="background:rgba(212,255,71,.05);border:0.5px solid rgba(212,255,71,.15);border-radius:var(--r);padding:12px;margin:12px 0;display:flex;align-items:center;gap:10px">
+      <span style="font-size:22px">🧪</span>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:600;color:var(--acc)">Haz el test de fuerza</div>
+        <div style="font-size:11px;color:var(--t2);margin-top:2px">La app calculará tu calentamiento y pesos automáticamente</div>
+      </div>
+      <button onclick="showTab('test',document.querySelectorAll('.nbtn')[4])" style="background:var(--acc);color:#000;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">Ir al test</button>
+    </div>`;
+  }
+
+  // ── Ejercicio secundario — peso manual ──────────────────────────
+  return weightBox(dayIdx, exIdx, ex.rec);
+}
+
 // ── WEIGHT BOX ────────────────────────────────────────────────────
 // Map dayIdx+exIdx to 1RM key
 const EX_RM_MAP = {
@@ -886,7 +949,7 @@ function renderWorkout(){
         <div class="chk${isDone?' done':''}" onclick="event.stopPropagation();toggleCheck('${ck}')">${chkSvg()}</div>
         <span class="chev">&#8964;</span></div>
       <div class="exdetail${isOpen?' open':''}">`;
-    html+=weightBox(curDay,i,ex.rec);
+    html+=seriesBox(curDay,i,ex);
     if(ex.hasAlt){
       html+=`<div class="alt-toggle">
         <button class="alt-btn${useAlt==='A'?' act-alt':''}" onclick="setAlt(${i},'A')">${ex.altA.label}</button>
@@ -1101,52 +1164,63 @@ function renderTestWarmup(){
 function renderTestMain(){
   const ex = KEY_EXERCISES.find(e=>e.key===window.testState.exKey);
   const rirSel = window.testState.rir;
+
   const rirOpts = [
-    {val:0, label:'0', sub:'Al fallo'},
-    {val:1, label:'1', sub:'1 rep más'},
-    {val:2, label:'2', sub:'2 reps más'},
-    {val:'3+', label:'3+', sub:'Muy fácil', invalid:true},
+    {val:0,    label:'Al fallo',    sub:'No podía hacer ni una más'},
+    {val:1,    label:'1 rep más',   sub:'Muy cerca del límite'},
+    {val:2,    label:'2 reps más',  sub:'Esfuerzo alto, pero controlado'},
+    {val:'3+', label:'Muy fácil',   sub:'Sube el peso y repite', invalid:true},
   ];
+
+  const easyWarning = rirSel==='3+'
+    ? `<div style="background:rgba(248,113,113,.08);border:0.5px solid rgba(248,113,113,.2);border-radius:var(--r);padding:10px 12px;font-size:12px;color:var(--red);margin-top:8px">
+        ⚠️ Ese peso fue muy ligero. Sube el peso y repite el test para un resultado más preciso.
+       </div>` : '';
 
   document.getElementById('main').innerHTML=`<div class="test-wrap fade">
     <div class="test-step">
       <div class="test-step-num">Paso 2 de 3 · ${ex.icon} ${ex.name}</div>
       <div class="test-step-title">Test principal</div>
-      <div class="test-step-body">Elige un peso con el que puedas hacer <b style="color:var(--acc)">entre 3 y 8 reps</b>. Haz las máximas reps que puedas con buena técnica.</div>
+      <div class="test-step-body">Elige un peso con el que puedas hacer <b style="color:var(--acc)">entre 3 y 8 reps</b>. Haz las máximas que puedas con buena técnica.</div>
     </div>
+
     <div class="test-inputs">
       <div class="test-input-wrap">
-        <div class="test-input-lbl">Peso usado</div>
+        <div class="test-input-lbl">⚖️ Peso usado</div>
         <div class="test-input-row">
           <input class="test-big-input" type="number" inputmode="decimal" placeholder="—"
-            value="${testState.peso||''}" oninput="window.testState.peso=parseFloat(this.value)||null"/>
+            value="${window.testState.peso||''}" oninput="window.testState.peso=parseFloat(this.value)||null"/>
           <span class="test-unit">kg</span>
         </div>
       </div>
       <div class="test-input-wrap">
-        <div class="test-input-lbl">Reps hechas</div>
+        <div class="test-input-lbl">🔁 Reps hechas</div>
         <div class="test-input-row">
           <input class="test-big-input" type="number" inputmode="numeric" placeholder="—"
-            value="${testState.reps||''}" oninput="window.testState.reps=parseInt(this.value)||null"/>
+            value="${window.testState.reps||''}" oninput="window.testState.reps=parseInt(this.value)||null"/>
           <span class="test-unit">reps</span>
         </div>
       </div>
     </div>
-    <div class="test-step" style="margin-top:4px">
-      <div class="test-step-num">RIR — Reps en reserva</div>
-      <div class="test-step-title">¿Cuántas reps más podías?</div>
-      <div class="rir-grid">
-        ${rirOpts.map(o=>`<div class="rir-btn${rirSel===o.val?' selected':''}${o.invalid?' invalid':''}"
-          onclick="window.testState.rir=${typeof o.val==='string'?"'"+o.val+"'":o.val};renderTestPage()">
-          <div style="font-size:20px;font-weight:800">${o.label}</div>
-          <div style="font-size:10px;margin-top:2px">${o.sub}</div>
+
+    <div style="margin-top:12px">
+      <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:8px">¿Cómo fue el esfuerzo?</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        ${rirOpts.map(o=>`<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:${rirSel===o.val?'rgba(212,255,71,.08)':'var(--bg2)'};border:0.5px solid ${rirSel===o.val?'var(--acc)':'var(--b)'};border-radius:var(--r);cursor:pointer;transition:all .18s"
+          onclick="window.testState.rir=${typeof o.val==='string'?"'"+o.val+"'":o.val};window.renderTestPage()">
+          <div style="width:20px;height:20px;border-radius:50%;border:1.5px solid ${rirSel===o.val?'var(--acc)':'var(--b2)'};background:${rirSel===o.val?'var(--acc)':'transparent'};flex-shrink:0"></div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:600;color:${rirSel===o.val?'var(--acc)':o.invalid?'var(--red)':'var(--t)'}">${o.label}</div>
+            <div style="font-size:11px;color:var(--t3);margin-top:1px">${o.sub}</div>
+          </div>
         </div>`).join('')}
       </div>
-      ${window.testState.rir==='3+' ? '<div style="font-size:12px;color:var(--red);margin-top:4px">⚠️ Con RIR 3+ el test no es válido. Usa más peso o haz más reps.</div>' : ''}
+      ${easyWarning}
     </div>
-    <div style="display:flex;gap:8px;margin-top:8px">
+
+    <div style="display:flex;gap:8px;margin-top:12px">
       <button class="btn-out" onclick="window.testState.step='warmup';window.renderTestPage()">← Volver</button>
-      <button class="mbtn" style="flex:2" onclick="validateAndCalc()">Calcular mi 1RM →</button>
+      <button class="mbtn" style="flex:2" onclick="window.validateAndCalc()">Calcular mi 1RM →</button>
     </div>
   </div>`;
 }
