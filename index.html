@@ -686,9 +686,81 @@ function buildStrip(){
 
 
 // ── WEIGHT BOX ────────────────────────────────────────────────────
+// Map dayIdx+exIdx to 1RM key
+const EX_RM_MAP = {
+  '0_0':'press_banca', '0_3':'press_militar',
+  '1_0':'dominadas',   '1_2':'remo_uni',
+  '2_0':'sentadilla',  '2_1':'rdl',
+  '4_0':'hip_thrust',  '4_1':'bulg_squat',
+  '5_0':'press_inclinado'
+};
+
 function weightBox(dayIdx, exIdx, rec){
-  const baseKey = `${weekNum}_${dayIdx}_${exIdx}`;
-  const curVal  = weights[baseKey]||'';
+  const baseKey  = `${weekNum}_${dayIdx}_${exIdx}`;
+  const rmKey    = EX_RM_MAP[`${dayIdx}_${exIdx}`];
+  const rm       = rmKey ? oneRM[rmKey] : null;
+
+  // ── Si tiene 1RM → mostrar peso automático ──
+  if(rm){
+    const w75 = Math.round(rm*0.75/2.5)*2.5;
+    const w80 = Math.round(rm*0.80/2.5)*2.5;
+    const w70 = Math.round(rm*0.70/2.5)*2.5;
+    const warmup = [
+      {pct:40, peso:Math.round(rm*0.40/2.5)*2.5, reps:8},
+      {pct:60, peso:Math.round(rm*0.60/2.5)*2.5, reps:5},
+      {pct:75, peso:Math.round(rm*0.75/2.5)*2.5, reps:3},
+    ];
+    let warmupHTML='';
+    warmup.forEach(s=>{
+      warmupHTML+=`<div class="warmup-row">
+        <div class="warmup-pct">${s.pct}%</div>
+        <div class="warmup-peso">${s.peso>0?s.peso+'kg':'Peso corporal'}</div>
+        <div class="warmup-reps">${s.reps} reps</div>
+      </div>`;
+    });
+
+    return `<div class="wbox">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <span style="font-size:18px">🤖</span>
+        <div style="flex:1">
+          <div class="wbox-lbl">Peso calculado — 1RM: ${rm}kg</div>
+          <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap">
+            <div style="background:rgba(212,255,71,.12);border:0.5px solid rgba(212,255,71,.2);border-radius:8px;padding:6px 12px;text-align:center">
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--acc);line-height:1">${w75}kg</div>
+              <div style="font-size:9px;color:var(--t3);margin-top:2px">75% · Hipertrofia</div>
+            </div>
+            <div style="background:var(--bg3);border:0.5px solid var(--b);border-radius:8px;padding:6px 12px;text-align:center">
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--t);line-height:1">${w80}kg</div>
+              <div style="font-size:9px;color:var(--t3);margin-top:2px">80% · Fuerza</div>
+            </div>
+            <div style="background:var(--bg3);border:0.5px solid var(--b);border-radius:8px;padding:6px 12px;text-align:center">
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--t);line-height:1">${w70}kg</div>
+              <div style="font-size:9px;color:var(--t3);margin-top:2px">70% · Volumen</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">🔥 Calentamiento específico</div>
+      <div class="warmup-series">${warmupHTML}</div>
+      <div style="font-size:10px;color:var(--t3);margin-top:8px;text-align:right;cursor:pointer" onclick="showTab('test',document.querySelectorAll('.nbtn')[4])">
+        Re-testear 1RM →
+      </div>
+    </div>`;
+  }
+
+  // ── Sin 1RM → mostrar aviso + botón al test ──
+  const noRmHTML = rmKey ? `
+    <div style="background:rgba(212,255,71,.05);border:0.5px solid rgba(212,255,71,.15);border-radius:var(--r);padding:12px;margin:10px 0;display:flex;align-items:center;gap:10px">
+      <span style="font-size:22px">🧪</span>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:600;color:var(--acc)">Haz el test de fuerza</div>
+        <div style="font-size:11px;color:var(--t2);margin-top:2px">La app calculará tu peso automáticamente</div>
+      </div>
+      <button onclick="showTab('test',document.querySelectorAll('.nbtn')[4])" style="background:var(--acc);color:#000;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">Ir al test</button>
+    </div>` : '';
+
+  // historial manual para ejercicios sin 1RM
+  const curVal = weights[baseKey]||'';
   let prevEntries=[];
   for(let w=weekNum;w>=Math.max(1,weekNum-3);w--){
     const v=weights[`${w}_${dayIdx}_${exIdx}`];
@@ -711,6 +783,7 @@ function weightBox(dayIdx, exIdx, rec){
     histHTML+='</div>';
   }
   return `<div class="wbox">
+    ${noRmHTML}
     <div class="wbox-top">
       <span class="wbox-ico">🏋️</span>
       <div class="wbox-info"><div class="wbox-lbl">Peso que usas</div><div class="wbox-rec">${rec}</div></div>
@@ -1517,6 +1590,8 @@ window.resetActRound    = resetActRound;
 window.renderProfile    = renderProfile;
 window.startTest        = startTest;
 window.validateAndCalc  = validateAndCalc;
+window.renderTestPage   = renderTestPage;
+window.renderTestList   = renderTestList;
 
 </script>
 </body>
