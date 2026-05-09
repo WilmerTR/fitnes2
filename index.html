@@ -1494,7 +1494,6 @@ function renderMedidas(){
   let fieldsHTML='';
   BODY_FIELDS.forEach(f=>{
     const lastVal=last?(last[f.key]||''):'';
-
     fieldsHTML+=`<div class="mfield"><div class="mfield-lbl">${f.label}</div>
       <div class="mfield-row"><input class="minput" type="number" inputmode="decimal" placeholder="—" id="mf_${f.key}" value="${lastVal}"/>
       <span class="munit">${f.unit}</span></div></div>`;
@@ -1503,10 +1502,20 @@ function renderMedidas(){
   if(bodyMeas.length===0){
     histHTML='<div class="no-meas">📏 Aún no tienes registros.<br>Guarda tus medidas de hoy<br>para empezar a ver tu progreso.</div>';
   } else {
-    histHTML='<div class="mhist-title">Historial de medidas</div>';
-    [...bodyMeas].reverse().forEach((entry,ei)=>{
-      const prevEntry=ei<[...bodyMeas].reverse().length-1?[...bodyMeas].reverse()[ei+1]:null;
-      histHTML+=`<div class="mhist-entry"><div class="mhist-date">📅 ${entry.date}</div><div class="mhist-vals">`;
+    histHTML=`<div style="display:flex;align-items:center;justify-content:space-between;margin:18px 0 10px">
+      <div class="mhist-title" style="margin:0">Historial de medidas</div>
+      <button onclick="clearAllMedidas()" style="background:rgba(248,113,113,.08);border:0.5px solid rgba(248,113,113,.2);border-radius:8px;padding:5px 12px;font-size:11px;color:var(--red);cursor:pointer;font-family:'DM Sans',sans-serif">🗑 Borrar todo</button>
+    </div>`;
+    const reversed=[...bodyMeas].reverse();
+    reversed.forEach((entry,ei)=>{
+      const realIdx=bodyMeas.length-1-ei;
+      const prevEntry=ei<reversed.length-1?reversed[ei+1]:null;
+      histHTML+=`<div class="mhist-entry">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <div class="mhist-date" style="margin:0">📅 ${entry.date}</div>
+          <button onclick="deleteMedida(${realIdx})" style="background:rgba(248,113,113,.08);border:0.5px solid rgba(248,113,113,.2);border-radius:8px;padding:4px 10px;font-size:11px;color:var(--red);cursor:pointer;font-family:'DM Sans',sans-serif">🗑 Borrar</button>
+        </div>
+        <div class="mhist-vals">`;
       BODY_FIELDS.forEach(f=>{
         const v=entry[f.key];const pv=prevEntry?prevEntry[f.key]:null;
         if(!v)return;
@@ -1541,6 +1550,20 @@ window.saveMedidas=()=>{
   });
   if(!hasAny){alert('Ingresa al menos una medida antes de guardar.');return;}
   bodyMeas.push(entry);
+  if(window.saveToCloud) window.saveToCloud();
+  renderMedidas();
+};
+
+window.deleteMedida=(idx)=>{
+  if(!confirm('¿Borrar este registro de medidas?')) return;
+  bodyMeas.splice(idx,1);
+  if(window.saveToCloud) window.saveToCloud();
+  renderMedidas();
+};
+
+window.clearAllMedidas=()=>{
+  if(!confirm('¿Borrar TODO el historial de medidas? No se puede deshacer.')) return;
+  bodyMeas=[];
   if(window.saveToCloud) window.saveToCloud();
   renderMedidas();
 };
@@ -1657,6 +1680,8 @@ window.toggleActP       = toggleActP;
 window.setAlt           = setAlt;
 window.saveWeight       = saveWeight;
 window.saveMedidas      = saveMedidas;
+window.deleteMedida     = deleteMedida;
+window.clearAllMedidas  = clearAllMedidas;
 window.prevWeek         = prevWeek;
 window.nextWeek         = nextWeek;
 window.resetWeek        = resetWeek;
