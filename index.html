@@ -354,7 +354,7 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
     <div class="logo">FITAPP</div>
     <div class="hright">
       <div class="wchip">Semana <b id="weekNum">1</b></div>
-      <div id="userAvatar" class="user-placeholder" onclick="showTab('perfil',document.querySelectorAll('.nbtn')[2])">👤</div>
+      <div id="userAvatar" class="user-placeholder" onclick="showTab('perfil',document.querySelectorAll('.nbtn')[0])">👤</div>
     </div>
   </div>
   <div class="dstrip" id="dayStrip"></div>
@@ -363,11 +363,11 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
 <div class="main" id="main"></div>
 
 <div class="bnav">
-  <button class="nbtn active" onclick="showTab('rutina',this)"><span class="ni">🏋️</span>Rutina</button>
-  <button class="nbtn" onclick="showTab('activacion',this)"><span class="ni">🍑</span>Activación</button>
   <button class="nbtn" onclick="showTab('perfil',this)"><span class="ni">👤</span>Perfil</button>
   <button class="nbtn" onclick="showTab('medidas',this)"><span class="ni">📏</span>Medidas</button>
   <button class="nbtn" onclick="showTab('test',this)"><span class="ni">🧪</span>Test</button>
+  <button class="nbtn active" onclick="showTab('rutina',this)"><span class="ni">🏋️</span>Rutina</button>
+  <button class="nbtn" onclick="showTab('activacion',this)"><span class="ni">🍑</span>Activación</button>
 </div>
 
 <!-- FIREBASE -->
@@ -728,7 +728,7 @@ function seriesBox(dayIdx, exIdx, ex){
           </div>
         </div>
       </div>
-      <div style="font-size:10px;color:var(--t3);margin-top:8px;text-align:right;cursor:pointer" onclick="showTab('test',document.querySelectorAll('.nbtn')[4])">Re-testear 1RM →</div>
+      <div style="font-size:10px;color:var(--t3);margin-top:8px;text-align:right;cursor:pointer" onclick="showTab('test',document.querySelectorAll('.nbtn')[2])">Re-testear 1RM →</div>
     </div>`;
   }
 
@@ -740,7 +740,7 @@ function seriesBox(dayIdx, exIdx, ex){
         <div style="font-size:13px;font-weight:600;color:var(--acc)">Haz el test de fuerza</div>
         <div style="font-size:11px;color:var(--t2);margin-top:2px">La app calculará tu calentamiento y pesos automáticamente</div>
       </div>
-      <button onclick="showTab('test',document.querySelectorAll('.nbtn')[4])" style="background:var(--acc);color:#000;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">Ir al test</button>
+      <button onclick="showTab('test',document.querySelectorAll('.nbtn')[2])" style="background:var(--acc);color:#000;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">Ir al test</button>
     </div>`;
   }
 
@@ -805,7 +805,7 @@ function weightBox(dayIdx, exIdx, rec){
       </div>
       <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">🔥 Calentamiento específico</div>
       <div class="warmup-series">${warmupHTML}</div>
-      <div style="font-size:10px;color:var(--t3);margin-top:8px;text-align:right;cursor:pointer" onclick="showTab('test',document.querySelectorAll('.nbtn')[4])">
+      <div style="font-size:10px;color:var(--t3);margin-top:8px;text-align:right;cursor:pointer" onclick="showTab('test',document.querySelectorAll('.nbtn')[2])">
         Re-testear 1RM →
       </div>
     </div>`;
@@ -819,7 +819,7 @@ function weightBox(dayIdx, exIdx, rec){
         <div style="font-size:13px;font-weight:600;color:var(--acc)">Haz el test de fuerza</div>
         <div style="font-size:11px;color:var(--t2);margin-top:2px">La app calculará tu peso automáticamente</div>
       </div>
-      <button onclick="showTab('test',document.querySelectorAll('.nbtn')[4])" style="background:var(--acc);color:#000;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">Ir al test</button>
+      <button onclick="showTab('test',document.querySelectorAll('.nbtn')[2])" style="background:var(--acc);color:#000;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">Ir al test</button>
     </div>` : '';
 
   // historial manual para ejercicios sin 1RM
@@ -1130,31 +1130,66 @@ window.startTest=(exKey)=>{
 function renderTestWarmup(){
   const ex = KEY_EXERCISES.find(e=>e.key===window.testState.exKey);
   const prevRM = oneRM[window.testState.exKey];
-  const baseRM = prevRM || (ex.baseKg>0 ? ex.baseKg*3 : 40);
-  const series = calcWarmupSeries(baseRM);
 
-  let seriesHTML='<div class="warmup-series">';
-  series.forEach(s=>{
-    seriesHTML+=`<div class="warmup-row">
-      <div class="warmup-pct">${s.pct}%</div>
-      <div class="warmup-peso">${s.peso>0?s.peso+'kg':'Peso corporal'}</div>
-      <div class="warmup-reps">${s.reps} reps</div>
-    </div>`;
-  });
-  seriesHTML+='</div>';
+  // Si ya tiene 1RM → calentamiento específico con pesos reales
+  // Si NO tiene 1RM → calentamiento general simple (5 pasos)
+  let warmupContent = '';
+
+  if(prevRM){
+    const series = calcWarmupSeries(prevRM);
+    let seriesHTML='<div class="warmup-series">';
+    series.forEach(s=>{
+      seriesHTML+=`<div class="warmup-row">
+        <div class="warmup-pct">${s.pct}%</div>
+        <div class="warmup-peso">${s.peso>0?s.peso+'kg':'Peso corporal'}</div>
+        <div class="warmup-reps">${s.reps} reps</div>
+      </div>`;
+    });
+    seriesHTML+='</div>';
+    warmupContent=`
+      <div class="test-step">
+        <div class="test-step-num">Paso 1 de 3 · ${ex.icon} ${ex.name}</div>
+        <div class="test-step-title">Calentamiento específico</div>
+        <div class="test-step-body">Basado en tu 1RM anterior de <b style="color:var(--acc)">${prevRM}kg</b>. Descansa 90 seg entre series.</div>
+        ${seriesHTML}
+      </div>
+      <div class="tipcard">
+        <div class="tipctitle"><div class="tipnum">!</div>¿Por qué calentar?</div>
+        <div class="tipbody">Estas series preparan el sistema nervioso y las articulaciones para el patrón exacto. Mejora el rendimiento 10-15% y reduce lesiones.</div>
+      </div>`;
+  } else {
+    // Sin 1RM → calentamiento general de 5 pasos
+    const pasos = [
+      {num:'1', ico:'🚶', title:'5 min calentamiento ligero', sub:'Camina, bicicleta estática o movilidad articular'},
+      {num:'2', ico:'🪶', title:'Serie con barra sola o peso muy ligero', sub:'10-15 reps — solo activar el movimiento, sin esfuerzo'},
+      {num:'3', ico:'📈', title:'Sube el peso poco a poco', sub:'2-3 series aumentando gradualmente sin llegar al fallo'},
+      {num:'4', ico:'💪', title:'Encuentra un peso retador', sub:'Con el que puedas hacer entre 3 y 8 reps con esfuerzo real'},
+      {num:'5', ico:'🧪', title:'Haz la serie del test', sub:'Máximas reps posibles con buena técnica — la app calcula tu 1RM'},
+    ];
+    warmupContent=`
+      <div class="test-step">
+        <div class="test-step-num">Paso 1 de 3 · ${ex.icon} ${ex.name}</div>
+        <div class="test-step-title">Prepárate para el test</div>
+        <div class="test-step-body">Sigue estos pasos antes de hacer el test. No hay pesos fijos — tú decides cuánto cargar.</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+          ${pasos.map(p=>`<div style="display:flex;align-items:flex-start;gap:12px;padding:12px;background:var(--bg3);border-radius:var(--r)">
+            <div style="width:28px;height:28px;border-radius:8px;background:rgba(212,255,71,.1);color:var(--acc);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Barlow Condensed',sans-serif">${p.num}</div>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:var(--t)">${p.ico} ${p.title}</div>
+              <div style="font-size:11px;color:var(--t2);margin-top:2px">${p.sub}</div>
+            </div>
+          </div>`).join('')}
+        </div>
+      </div>
+      <div class="tipcard">
+        <div class="tipctitle"><div class="tipnum">!</div>Fórmula usada</div>
+        <div class="tipbody">Tu 1RM se calcula con la <b style="color:var(--acc)">fórmula de Epley</b>: 1RM = Peso × (1 + Reps/30). Ejemplo: 80kg × 8 reps → 1RM ≈ 101kg.</div>
+      </div>`;
+  }
 
   document.getElementById('main').innerHTML=`<div class="test-wrap fade">
-    <div class="test-step">
-      <div class="test-step-num">Paso 1 de 3 · ${ex.icon} ${ex.name}</div>
-      <div class="test-step-title">Calentamiento específico</div>
-      <div class="test-step-body">Haz estas series antes del test. Descansa 90 seg entre cada una.</div>
-      ${seriesHTML}
-    </div>
-    <div class="tipcard">
-      <div class="tipctitle"><div class="tipnum">!</div>¿Por qué calentar?</div>
-      <div class="tipbody">El calentamiento específico prepara el sistema nervioso y las articulaciones para el patrón de movimiento exacto. Mejora el rendimiento 10-15% y reduce lesiones.</div>
-    </div>
-    <div style="display:flex;gap:8px;margin-top:4px">
+    ${warmupContent}
+    <div style="display:flex;gap:8px;margin-top:12px">
       <button class="btn-out" onclick="window.testState.step='list';window.renderTestPage()">← Volver</button>
       <button class="mbtn" style="flex:2" onclick="window.testState.step='test';window.renderTestPage()">✅ Listo, hacer el test →</button>
     </div>
@@ -1294,7 +1329,7 @@ function renderTestResult(){
     <button class="mbtn" style="margin-bottom:10px" onclick="window.testState={step:'list',exKey:null,peso:null,reps:null,rir:null};window.renderTestPage()">
       ✅ Guardar y volver al test
     </button>
-    <button class="btn-out" onclick="showTab('rutina',document.querySelectorAll('.nbtn')[0])">
+    <button class="btn-out" onclick="showTab('rutina',document.querySelectorAll('.nbtn')[3])">
       🏋️ Ir a entrenar
     </button>
   </div>`;
@@ -1592,7 +1627,7 @@ onAuthStateChanged(auth, async (user) => {
     // Avatar
     const av = document.getElementById('userAvatar');
     if(user.photoURL){
-      av.innerHTML = `<img src="${user.photoURL}" class="user-avatar" onclick="showTab('perfil',document.querySelectorAll('.nbtn')[2])"/>`;
+      av.innerHTML = `<img src="${user.photoURL}" class="user-avatar" onclick="showTab('perfil',document.querySelectorAll('.nbtn')[0])"/>`;
     } else {
       av.textContent = user.displayName ? user.displayName[0].toUpperCase() : '👤';
     }
