@@ -1709,40 +1709,42 @@ window.saveToCloud=async()=>{
 };
 
 // ── BOOT ─────────────────────────────────────────────────────────
-const splashTimeout=setTimeout(()=>{
+// ── BOOT inmediato — no esperamos Firebase ──────────────────────
+function bootApp(){
   document.getElementById('splash').classList.add('hide');
-  document.getElementById('loginScreen').classList.add('show');
-},5000);
+  const savedOb = localStorage.getItem('fitapp_ob');
+  const obDone  = savedOb && JSON.parse(savedOb).onboardDone;
+  if(!obDone){
+    document.getElementById('onboardScreen').classList.add('show');
+    obRender();
+  } else {
+    const o = JSON.parse(savedOb);
+    if(o.rmExercise && o.rmResult) oneRM[o.rmExercise] = o.rmResult;
+    showApp();
+  }
+}
 
-onAuthStateChanged(auth,async(user)=>{
-  clearTimeout(splashTimeout);
+// Splash mínimo de 1.5 seg para que se vea la animación, luego arranca
+setTimeout(bootApp, 1500);
+
+// Firebase corre en paralelo — si hay sesión activa, enriquece la UI
+onAuthStateChanged(auth, async(user)=>{
   if(user){
-    currentUser=user;
-    document.getElementById('loginScreen').classList.remove('show');
-    document.getElementById('onboardScreen').classList.remove('show');
-    const av=document.getElementById('userAvatar');
-    if(user.photoURL)av.innerHTML=`<img src="${user.photoURL}" class="user-avatar" onclick="showTab('perfil',document.querySelectorAll('.nbtn')[6])"/>`;
-    else av.textContent=user.displayName?user.displayName[0].toUpperCase():'👤';
-    try{await loadFromCloud();}catch(e){}
-    document.getElementById('splash').classList.add('hide');
-    document.getElementById('weekNum').textContent=weekNum;
-    const savedOb=localStorage.getItem('fitapp_ob');
-    if(!savedOb||!JSON.parse(savedOb).onboardDone){
-      document.getElementById('onboardScreen').classList.add('show');obRender();
-    } else {
-      if(JSON.parse(savedOb).rmExercise&&JSON.parse(savedOb).rmResult)oneRM[JSON.parse(savedOb).rmExercise]=JSON.parse(savedOb).rmResult;
-      showApp();
+    currentUser = user;
+    // Actualiza avatar si ya está visible
+    const av = document.getElementById('userAvatar');
+    if(av){
+      if(user.photoURL) av.innerHTML=`<img src="${user.photoURL}" class="user-avatar" onclick="showTab('perfil',document.querySelectorAll('.nbtn')[6])"/>`;
+      else av.textContent = user.displayName ? user.displayName[0].toUpperCase() : '👤';
+    }
+    // Carga datos de la nube en segundo plano
+    try{ await loadFromCloud(); }catch(e){ console.log('Cloud load:',e); }
+    // Si la app ya está visible, refresca la pantalla actual
+    if(!document.getElementById('appHeader').style.display || document.getElementById('appHeader').style.display !== 'none'){
+      buildStrip(); renderWorkout();
     }
   } else {
-    currentUser=null;
-    document.getElementById('splash').classList.add('hide');
-    const savedOb=localStorage.getItem('fitapp_ob');
-    if(!savedOb||!JSON.parse(savedOb).onboardDone){
-      document.getElementById('onboardScreen').classList.add('show');obRender();
-    } else {
-      if(JSON.parse(savedOb).rmExercise&&JSON.parse(savedOb).rmResult)oneRM[JSON.parse(savedOb).rmExercise]=JSON.parse(savedOb).rmResult;
-      showApp();
-    }
+    currentUser = null;
   }
 });
 
