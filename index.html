@@ -1378,7 +1378,7 @@ function renderMedidas(){
   const last=bodyMeas.length>0?bodyMeas[bodyMeas.length-1]:null;
   let fieldsHTML='';
   BODY_FIELDS.forEach(f=>{
-    const lastVal=last?(last[f.key]||')':'';
+    const lastVal=last?(last[f.key]||''):'';  
     fieldsHTML+=`<div class="mfield"><div class="mfield-lbl">${f.label}</div>
       <div class="mfield-row"><input class="minput" type="number" inputmode="decimal" placeholder="—" id="mf_${f.key}" value="${lastVal}"/><span class="munit">${f.unit}</span></div></div>`;
   });
@@ -1490,7 +1490,7 @@ function renderStats(){
 function renderProfile(){
   const user=currentUser;
   const name=user?(user.displayName||'Atleta'):'Atleta';
-  const email=user?(user.email||'):'';
+  const email=user?(user.email||''):'';
   const photo=user?user.photoURL:null;
   const streak=calcStreak();
   const weekTotal=DAYS.reduce((a,d)=>a+d.exercises.length,0);
