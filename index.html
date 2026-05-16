@@ -908,6 +908,7 @@ window.obSetAMPM = (ampm) => {
   else if(ampm==='PM' && h<12) ob.trainTime = String(h+12).padStart(2,'0')+':00';
 };
 window.obBackStep = () => { if(ob.step > 0){ ob.step--; obRender(); document.getElementById('obBody').scrollTop=0; } };
+window.obNextStep = () => {
   if(ob.step < OB_STEPS.length-1){ ob.step++; obRender(); document.getElementById('obBody').scrollTop=0; }
   else { obFinishLocal(); }
 };
