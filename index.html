@@ -452,7 +452,10 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
   <div class="ob-body" id="obBody"></div>
   <div class="ob-footer">
     <button class="ob-next" id="obNext" onclick="obNextStep()">Continuar →</button>
-    <span class="ob-skip" id="obSkip" onclick="obSkipStep()">Omitir por ahora</span>
+    <div style="display:flex;gap:10px;margin-top:10px">
+      <span class="ob-skip" id="obBack" onclick="obBackStep()" style="flex:1;text-align:left">← Atrás</span>
+      <span class="ob-skip" id="obSkip" onclick="obSkipStep()" style="flex:1;text-align:right">Omitir</span>
+    </div>
   </div>
 </div>
 
@@ -628,7 +631,7 @@ function obRender(){
     <div class="ob-num-row">
       <span class="ob-num-lbl">Altura</span>
       <div class="ob-num-wrap">
-        <input class="ob-num-input" type="number" inputmode="decimal" placeholder="${ob.heightUnit==='cm'?'170':'5.8'}" value="${ob.heightCm}" oninput="obSet('heightCm',this.value)"/>
+        <input class="ob-num-input" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="${ob.heightUnit==='cm'?'170':'5.8'}" value="${ob.heightCm}" oninput="obSet('heightCm',this.value)"/>
         <span class="ob-num-unit">${ob.heightUnit}</span>
       </div>
     </div>`;
@@ -656,7 +659,7 @@ function obRender(){
     <div class="ob-num-row">
       <span class="ob-num-lbl">Peso actual</span>
       <div class="ob-num-wrap">
-        <input class="ob-num-input" type="number" inputmode="decimal" placeholder="${ob.weightUnit==='kg'?'70':'154'}" value="${ob.weightKg}" oninput="obSet('weightKg',this.value);obRender()"/>
+        <input class="ob-num-input" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="${ob.weightUnit==='kg'?'70':'154'}" value="${ob.weightKg}" oninput="obSet('weightKg',this.value);obRender()"/>
         <span class="ob-num-unit">${ob.weightUnit}</span>
       </div>
     </div>
@@ -679,7 +682,7 @@ function obRender(){
     <div class="ob-num-row">
       <span class="ob-num-lbl">Peso meta</span>
       <div class="ob-num-wrap">
-        <input class="ob-num-input" type="number" inputmode="decimal" placeholder="65" value="${ob.weightGoalKg}" oninput="obSet('weightGoalKg',this.value);obRender()"/>
+        <input class="ob-num-input" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="65" value="${ob.weightGoalKg}" oninput="obSet('weightGoalKg',this.value);obRender()"/>
         <span class="ob-num-unit">${ob.weightUnit}</span>
       </div>
     </div>
@@ -742,11 +745,11 @@ function obRender(){
       <div class="test-inputs">
         <div class="test-input-wrap">
           <div class="test-input-lbl">Peso levantado (kg)</div>
-          <input class="test-big-input" type="number" inputmode="decimal" placeholder="80" value="${ob.rmWeight}" oninput="obSet('rmWeight',this.value);obCalcRM()"/>
+          <input class="test-big-input" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="80" value="${ob.rmWeight}" oninput="obSet('rmWeight',this.value);obCalcRM()"/>
         </div>
         <div class="test-input-wrap">
           <div class="test-input-lbl">Reps realizadas</div>
-          <input class="test-big-input" type="number" inputmode="decimal" placeholder="5" value="${ob.rmReps}" oninput="obSet('rmReps',this.value);obCalcRM()"/>
+          <input class="test-big-input" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="5" value="${ob.rmReps}" oninput="obSet('rmReps',this.value);obCalcRM()"/>
         </div>
       </div>
     </div>
@@ -829,14 +832,34 @@ function obRender(){
       </div>`).join('')}
     </div>`;
   } else if(step==='time'){
+    // Parse current time
+    const [curH, curM] = (ob.trainTime||'07:00').split(':').map(Number);
+    const isAM = curH < 12;
+    const h12 = curH % 12 || 12;
+    const hours = [5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22];
     html = `<div class="ob-step-num">Paso 13 de ${OB_STEPS.length}</div>
     <div class="ob-title">¿A qué hora prefieres entrenar?</div>
-    <div class="ob-desc">Te enviaremos un recordatorio a esta hora para que no se te olvide.</div>
-    <div class="ob-time-wrap">
-      <input class="ob-time-input" type="time" value="${ob.trainTime}" oninput="obSet('trainTime',this.value)"/>
+    <div class="ob-desc">Te avisaremos a esta hora para que no pierdas tu rutina.</div>
+    <div style="display:flex;gap:10px;margin:20px 0 16px;justify-content:center">
+      <div class="ob-num-toggle">
+        <button class="${isAM?'active':''}" onclick="obSetAMPM('AM');obRender()">AM</button>
+        <button class="${!isAM?'active':''}" onclick="obSetAMPM('PM');obRender()">PM</button>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px">
+      ${hours.map(h=>{
+        const isSelected=(h===curH);
+        const disp=(h>12?h-12:h===0?12:h)+'h';
+        const ampm=h<12?'AM':h===12?'PM':'PM';
+        return `<div onclick="obSetHour(${h});obRender()" style="padding:12px 6px;text-align:center;border-radius:var(--r);cursor:pointer;border:1.5px solid ${isSelected?'var(--acc)':'var(--b2)'};background:${isSelected?'rgba(245,197,24,.12)':'var(--bg2)'};transition:all .2s">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:${isSelected?'var(--acc)':'var(--t)'};line-height:1">${disp}</div>
+          <div style="font-size:9px;color:${isSelected?'var(--acc)':'var(--t3)'};margin-top:2px">${ampm}</div>
+        </div>`;
+      }).join('')}
     </div>
     <div class="ob-info-box">
-      <strong>💡 Ciencia:</strong> Entrenar siempre a la misma hora sincroniza tu ritmo circadiano y mejora el rendimiento hasta un <strong>20%</strong> en pocas semanas.
+      <strong>⏰ Hora seleccionada: ${h12}:00 ${isAM?'AM':'PM'}</strong> — Recibirás un recordatorio antes de entrenar.
+      <br><br><strong>💡 Ciencia:</strong> Entrenar siempre a la misma hora mejora el rendimiento hasta un <strong>20%</strong> en pocas semanas.
     </div>`;
   } else if(step==='login'){
     html = `<div class="ob-step-num">Paso 14 de ${OB_STEPS.length} — Último</div>
@@ -878,7 +901,13 @@ window.obUpdateRM = (v) => {
   const num = document.getElementById('rmDisplayNum');
   if(num) num.textContent = ob.rmResult+'kg';
 };
-window.obNextStep = () => {
+window.obSetHour = (h) => { ob.trainTime = String(h).padStart(2,'0')+':00'; };
+window.obSetAMPM = (ampm) => {
+  const h = parseInt((ob.trainTime||'07:00').split(':')[0]);
+  if(ampm==='AM' && h>=12) ob.trainTime = String(h-12).padStart(2,'0')+':00';
+  else if(ampm==='PM' && h<12) ob.trainTime = String(h+12).padStart(2,'0')+':00';
+};
+window.obBackStep = () => { if(ob.step > 0){ ob.step--; obRender(); document.getElementById('obBody').scrollTop=0; } };
   if(ob.step < OB_STEPS.length-1){ ob.step++; obRender(); document.getElementById('obBody').scrollTop=0; }
   else { obFinishLocal(); }
 };
@@ -1018,7 +1047,26 @@ const NO_EQUIP = [
   {name:'Superman',ico:'🦸',sets:'3 × 12 reps',tip:'Boca abajo, levanta brazos y piernas simultáneamente. Pausa 2 seg.'},
 ];
 
-// ── APP STATE ────────────────────────────────────────────────────
+// ── GIF MAP por ejercicio ─────────────────────────────────────────
+const EX_GIFS = {
+  'Press banca con barra':    'https://media.giphy.com/media/3o7TKSxdMEkOYPdDXi/giphy.gif',
+  'Press inclinado con mancuernas': 'https://media.giphy.com/media/l0HlNaQ6gWfllcjDO/giphy.gif',
+  'Jalón al pecho':           'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif',
+  'Jalón al pecho en máquina':'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif',
+  'Remo sentado en máquina':  'https://media.giphy.com/media/l0HlBO4BW4F8fj2j6/giphy.gif',
+  'Remo con barra':           'https://media.giphy.com/media/l0HlBO4BW4F8fj2j6/giphy.gif',
+  'Laterales en máquina':     'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif',
+  'Elevaciones laterales':    'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif',
+  'Press militar con mancuernas': 'https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif',
+  'Copa con cuerda (Tríceps)':'https://media.giphy.com/media/26ufcYfp9Wnp0GVQQ/giphy.gif',
+  'Sentadilla libre con barra':'https://media.giphy.com/media/3oEjI5P7RD2e9MvGCI/giphy.gif',
+  'Sentadillas búlgaras en Smith':'https://media.giphy.com/media/3oEjI5P7RD2e9MvGCI/giphy.gif',
+  'Peso muerto':              'https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif',
+  'Peso muerto rumano':       'https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif',
+  'Hip Thrust con barra':     'https://media.giphy.com/media/3o7TKSxdMEkOYPdDXi/giphy.gif',
+  'Elevación de pantorrillas':'https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif',
+  'Curl bíceps con barra Z':  'https://media.giphy.com/media/l0HlHFRbmaZtBqhsI/giphy.gif',
+};
 let curDay = (()=>{let d=new Date().getDay();return d===0?6:d-1;})();
 let oneRM={}, weekNum=1, checked={}, actChk={}, weights={}, bodyMeas=[], expanded={}, altState={};
 let currentFoodCat='todos', currentRelaxCat='todos', feedbackStars=0;
@@ -1054,38 +1102,56 @@ function buildStrip(){
 
 function weightBox(dayIdx,exIdx,rec){
   const baseKey=`${weekNum}_${dayIdx}_${exIdx}`;
+  // Try mapped key first, fallback to ob onboarding 1RM
   const rmKey=EX_RM_MAP[`${dayIdx}_${exIdx}`];
-  const rm=rmKey?oneRM[rmKey]:null;
+  let rm=rmKey?oneRM[rmKey]:null;
+  // If no specific RM, use the onboarding RM as fallback
+  if(!rm){
+    const savedOb=localStorage.getItem('fitapp_ob');
+    if(savedOb){const o=JSON.parse(savedOb);if(o.rmResult)rm=o.rmResult;}
+  }
+  const curVal=weights[baseKey]||'';
   if(rm){
+    const pct=exIdx===0&&(dayIdx===0||dayIdx===3)?0.85:exIdx<=1&&(dayIdx===1||dayIdx===5)?0.85:0.75;
     const w75=Math.round(rm*0.75/2.5)*2.5, w80=Math.round(rm*0.80/2.5)*2.5, w70=Math.round(rm*0.70/2.5)*2.5;
     return `<div class="wbox">
-      <div class="wbox-lbl" style="margin-bottom:8px">🤖 Peso calculado — 1RM: ${rm}kg</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
-        <div style="background:rgba(212,255,71,.12);border:0.5px solid rgba(212,255,71,.2);border-radius:8px;padding:6px 12px;text-align:center">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--acc);line-height:1">${w75}kg</div>
-          <div style="font-size:9px;color:var(--t3);margin-top:2px">75% · Hipertrofia</div>
+      <div class="wbox-lbl" style="margin-bottom:8px">🤖 Pesos calculados — tu 1RM: <b style="color:var(--acc)">${rm}kg</b></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+        <div style="background:rgba(212,255,71,.12);border:0.5px solid rgba(212,255,71,.2);border-radius:8px;padding:8px 12px;text-align:center;flex:1">
+          <div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px">Volumen 70%</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--acc);line-height:1.1">${w70}kg</div>
         </div>
-        <div style="background:var(--bg3);border:0.5px solid var(--b);border-radius:8px;padding:6px 12px;text-align:center">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--t);line-height:1">${w80}kg</div>
-          <div style="font-size:9px;color:var(--t3);margin-top:2px">80% · Fuerza</div>
+        <div style="background:rgba(245,197,24,.1);border:0.5px solid rgba(245,197,24,.25);border-radius:8px;padding:8px 12px;text-align:center;flex:1">
+          <div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px">Hipertrofia 75%</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--acc);line-height:1.1">${w75}kg</div>
         </div>
-        <div style="background:var(--bg3);border:0.5px solid var(--b);border-radius:8px;padding:6px 12px;text-align:center">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--t);line-height:1">${w70}kg</div>
-          <div style="font-size:9px;color:var(--t3);margin-top:2px">70% · Volumen</div>
+        <div style="background:rgba(255,92,92,.08);border:0.5px solid rgba(255,92,92,.2);border-radius:8px;padding:8px 12px;text-align:center;flex:1">
+          <div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px">Fuerza 80%</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--red);line-height:1.1">${w80}kg</div>
         </div>
       </div>
-      <div style="font-size:10px;color:var(--t3);text-align:right;cursor:pointer" onclick="showTab('test',document.querySelectorAll('.nbtn')[4])">Re-testear →</div>
+      <div style="display:flex;align-items:center;gap:8px;background:var(--bg3);border-radius:var(--r);padding:10px 12px">
+        <span style="font-size:14px">✏️</span>
+        <span style="font-size:12px;color:var(--t2);flex:1">Peso que usarás hoy</span>
+        <input class="winput" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="—" value="${curVal}"
+          onchange="saveWeight('${baseKey}',this.value)"
+          style="width:70px;font-size:22px"/>
+        <span style="font-size:12px;color:var(--t3)">kg</span>
+      </div>
     </div>`;
   }
-  const noRmHTML=rmKey?`<div style="background:rgba(212,255,71,.05);border:0.5px solid rgba(212,255,71,.15);border-radius:var(--r);padding:12px;margin:10px 0;display:flex;align-items:center;gap:10px">
-    <span style="font-size:22px">🧪</span>
-    <div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--acc)">Haz el test de fuerza</div><div style="font-size:11px;color:var(--t2);margin-top:2px">La app calculará tu peso automáticamente</div></div>
-    <button onclick="showTab('test',document.querySelectorAll('.nbtn')[4])" style="background:var(--acc);color:#000;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer">Ir al test</button>
-  </div>`:'';
-  const curVal=weights[baseKey]||'';
-  return `<div class="wbox">${noRmHTML}<div class="wbox-top"><span class="wbox-ico">🏋️</span><div class="wbox-info"><div class="wbox-lbl">Peso que usas</div><div class="wbox-rec">${rec}</div></div>
-    <input class="winput" type="number" inputmode="decimal" placeholder="—" value="${curVal}" onchange="saveWeight('${baseKey}',this.value)" oninput="saveWeight('${baseKey}',this.value)"/>
-    <span class="wunit">kg</span></div></div>`;
+  // No RM at all — simple input, no test button
+  return `<div class="wbox">
+    <div style="font-size:11px;color:var(--t2);margin-bottom:8px">💡 ${rec}</div>
+    <div style="display:flex;align-items:center;gap:8px;background:var(--bg3);border-radius:var(--r);padding:10px 12px">
+      <span style="font-size:14px">🏋️</span>
+      <span style="font-size:12px;color:var(--t2);flex:1">Peso que usarás hoy</span>
+      <input class="winput" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="—" value="${curVal}"
+        onchange="saveWeight('${baseKey}',this.value)"
+        style="width:70px;font-size:22px"/>
+      <span style="font-size:12px;color:var(--t3)">kg</span>
+    </div>
+  </div>`;
 }
 
 function actCard(isPage){
@@ -1151,6 +1217,14 @@ function renderWorkout(){
       </div>
       <div class="alt-content${useAlt==='A'?' show':''}"><div class="alt-tip">${ex.altA.tip}</div></div>
       <div class="alt-content${useAlt==='B'?' show':''}"><div class="alt-tip">${ex.altB.tip}</div></div>`;
+    }
+    // GIF del ejercicio
+    const gifUrl = EX_GIFS[ex.name];
+    if(gifUrl){
+      html+=`<div style="border-radius:var(--r);overflow:hidden;margin:10px 0;position:relative;background:var(--bg3)">
+        <img src="${gifUrl}" alt="${ex.name}" style="width:100%;height:180px;object-fit:cover;display:block;border-radius:var(--r)" loading="lazy" onerror="this.parentElement.style.display='none'"/>
+        <div style="position:absolute;bottom:6px;right:8px;background:rgba(0,0,0,.6);padding:2px 8px;border-radius:999px;font-size:10px;color:white">Forma correcta</div>
+      </div>`;
     }
     html+=`<div class="tipbox">${ex.tip}</div>
       <a href="${ex.video}" target="_blank" class="ytlink">
@@ -1313,11 +1387,11 @@ function renderTestMain(){
       <div class="test-inputs">
         <div class="test-input-wrap">
           <div class="test-input-lbl">Peso (kg)</div>
-          <input class="test-big-input" type="number" inputmode="decimal" placeholder="80" id="tPeso" value="${window.testState.peso||''}"/>
+          <input class="test-big-input" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="80" id="tPeso" value="${window.testState.peso||''}"/>
         </div>
         <div class="test-input-wrap">
           <div class="test-input-lbl">Repeticiones</div>
-          <input class="test-big-input" type="number" inputmode="decimal" placeholder="5" id="tReps" value="${window.testState.reps||''}"/>
+          <input class="test-big-input" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="5" id="tReps" value="${window.testState.reps||''}"/>
         </div>
       </div>
     </div>
@@ -1380,7 +1454,7 @@ function renderMedidas(){
   BODY_FIELDS.forEach(f=>{
     const lastVal=last?(last[f.key]||''):'';  
     fieldsHTML+=`<div class="mfield"><div class="mfield-lbl">${f.label}</div>
-      <div class="mfield-row"><input class="minput" type="number" inputmode="decimal" placeholder="—" id="mf_${f.key}" value="${lastVal}"/><span class="munit">${f.unit}</span></div></div>`;
+      <div class="mfield-row"><input class="minput" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="—" id="mf_${f.key}" value="${lastVal}"/><span class="munit">${f.unit}</span></div></div>`;
   });
   let histHTML='';
   if(bodyMeas.length===0){
