@@ -434,6 +434,74 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
 .star.active{opacity:1;transform:scale(1.1)}
 .feedback-textarea{width:100%;background:var(--bg3);border:1.5px solid var(--b2);border-radius:var(--r);color:var(--t);font-family:'DM Sans',sans-serif;font-size:13px;padding:12px;min-height:100px;resize:none;margin-bottom:14px}
 .feedback-textarea:focus{outline:none;border-color:var(--acc)}
+
+/* ── PROGRESS RINGS ── */
+.prog-ring-wrap{position:relative;width:60px;height:60px;flex-shrink:0}
+.prog-ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.prog-ring-pct{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;color:var(--acc);line-height:1}
+.prog-ring-lbl{font-size:8px;color:var(--t3);text-transform:uppercase}
+
+/* ── COMMUNITY COMMENTS ── */
+.comment-card{background:var(--bg3);border-radius:var(--r2);padding:12px 14px;border:0.5px solid var(--b)}
+.comment-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.comment-avatar{width:28px;height:28px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--acc);flex-shrink:0;border:1px solid rgba(245,197,24,.2)}
+.comment-name{font-size:12px;font-weight:600;color:var(--t);flex:1}
+.comment-time{font-size:10px;color:var(--t3)}
+.comment-text{font-size:13px;color:var(--t2);line-height:1.65}
+.comment-likes{display:flex;align-items:center;gap:4px;margin-top:8px;cursor:pointer}
+.comment-like-btn{font-size:12px;color:var(--t3);background:var(--bg4);border:none;border-radius:999px;padding:3px 10px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.comment-like-btn.liked{color:var(--red);background:rgba(255,92,92,.1)}
+
+/* ── NOTIFICATION BELL ── */
+.notif-btn{position:relative;width:28px;height:28px;border-radius:50%;background:var(--bg3);border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px}
+.notif-dot{position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;background:var(--red);border:1.5px solid var(--bg)}
+
+/* ── WORKOUT TIMER ── */
+.timer-bar{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(245,197,24,.95);z-index:200;padding:8px 16px;display:flex;align-items:center;gap:10px;display:none}
+.timer-bar.show{display:flex}
+.timer-num{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:#000;min-width:42px}
+.timer-lbl{font-size:12px;font-weight:600;color:rgba(0,0,0,.7);flex:1}
+.timer-close{background:rgba(0,0,0,.15);border:none;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;color:#000;cursor:pointer;font-family:'DM Sans',sans-serif}
+
+/* ── MUSCLE MAP ── */
+.muscle-map{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.muscle-tag{font-size:11px;padding:3px 10px;border-radius:999px;font-weight:600;background:rgba(245,197,24,.1);color:var(--acc);border:0.5px solid rgba(245,197,24,.25)}
+.muscle-tag.sec{background:rgba(139,147,168,.1);color:var(--t2);border-color:var(--b2)}
+
+/* ── SERIES TRACKER ── */
+.series-tracker{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.serie-btn{width:36px;height:36px;border-radius:9px;border:1.5px solid var(--b2);background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--t2);cursor:pointer;transition:all .2s;font-family:'Barlow Condensed',sans-serif}
+.serie-btn.done-s{background:var(--acc);border-color:var(--acc);color:#000}
+.serie-btn.current-s{border-color:var(--acc);color:var(--acc);box-shadow:0 0 8px rgba(245,197,24,.3)}
+
+/* ── PERSONAL RECORDS ── */
+.pr-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;background:linear-gradient(135deg,rgba(245,197,24,.2),rgba(245,197,24,.05));border:0.5px solid rgba(245,197,24,.4);font-size:10px;font-weight:700;color:var(--acc);margin-left:6px}
+
+/* ── WATER TRACKER ── */
+.water-track{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.water-cup{font-size:20px;cursor:pointer;opacity:.3;transition:all .2s;filter:grayscale(1)}
+.water-cup.filled{opacity:1;filter:none}
+
+/* ── IMPROVED CARDS ── */
+.day-summary-card{background:linear-gradient(135deg,rgba(245,197,24,.08),rgba(245,197,24,.02));border:0.5px solid rgba(245,197,24,.2);border-radius:var(--r2);padding:14px;margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.dsc-ico{font-size:28px;width:44px;height:44px;background:rgba(245,197,24,.1);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dsc-info{flex:1}
+.dsc-title{font-size:13px;font-weight:700;color:var(--t);margin-bottom:2px}
+.dsc-sub{font-size:11px;color:var(--t2)}
+.dsc-val{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:var(--acc);line-height:1}
+
+/* ── REST TIMER ── */
+.rest-timer-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:400;display:none;align-items:center;justify-content:center;flex-direction:column}
+.rest-timer-modal.show{display:flex}
+.rest-timer-num{font-family:'Barlow Condensed',sans-serif;font-size:120px;font-weight:900;color:var(--acc);line-height:1;text-shadow:0 0 60px rgba(245,197,24,.4)}
+.rest-timer-lbl{font-size:16px;color:var(--t2);margin-bottom:32px;letter-spacing:2px;text-transform:uppercase}
+.rest-timer-skip{background:var(--bg2);border:1px solid var(--b2);border-radius:999px;padding:10px 28px;font-size:14px;font-weight:600;color:var(--t);cursor:pointer;font-family:'DM Sans',sans-serif}
+
+/* ── IMPROVED PROFILE ── */
+.goal-progress{background:var(--bg2);border:0.5px solid var(--b);border-radius:var(--r2);padding:16px;margin-bottom:10px}
+.goal-bar-wrap{height:8px;background:var(--bg3);border-radius:8px;margin:8px 0;overflow:hidden}
+.goal-bar-fill{height:8px;border-radius:8px;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .6s cubic-bezier(.4,0,.2,1)}
+
 </style>
 </head>
 <body>
@@ -478,6 +546,7 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
     <div class="logo">FITAPP</div>
     <div class="hright">
       <div class="wchip">Semana <b id="weekNum">1</b></div>
+      <div class="notif-btn" onclick="showNotifs()" id="notifBell">🔔<div class="notif-dot" id="notifDot" style="display:none"></div></div>
       <div id="userAvatar" class="user-placeholder" onclick="showTab('perfil',document.querySelectorAll('.nbtn')[6])">👤</div>
     </div>
   </div>
@@ -492,6 +561,15 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
   <button class="nbtn" onclick="showTab('test',this)"><span class="ni">🧪</span>Test</button>
   <button class="nbtn" onclick="showTab('medidas',this)"><span class="ni">📏</span>Medidas</button>
   <button class="nbtn" onclick="showTab('perfil',this)"><span class="ni">👤</span>Perfil</button>
+</div>
+
+
+<!-- REST TIMER MODAL -->
+<div class="rest-timer-modal" id="restTimerModal">
+  <div class="rest-timer-lbl">Descanso entre series</div>
+  <div class="rest-timer-num" id="restTimerNum">90</div>
+  <div style="font-size:13px;color:var(--t3);margin-bottom:32px">segundos</div>
+  <button class="rest-timer-skip" onclick="skipRestTimer()">Saltar descanso ›</button>
 </div>
 
 <!-- Food modal -->
@@ -935,57 +1013,169 @@ window.signInWithGoogleOnboard = async () => {
 };
 
 // ── PROGRAMS DATA ─────────────────────────────────────────────────
+// ── PROGRAMA CIENTÍFICO ───────────────────────────────────────────
+// Base: Schoenfeld 2017 (10-20 series/músculo/semana para hipertrofia)
+// Krieger 2010: 2-4 ejercicios por grupo/sesión es el punto óptimo
+// Helms 2014: 80% compuestos + 20% aislamiento
+// Ralston 2017: frecuencia 2x/semana > 1x para hipertrofia
+// Cada día: 1 compuesto principal + 1-2 complementarios + 1 aislamiento máximo
 const DAYS = [
-  {name:'Lunes',short:'LUN',type:'torso',color:'#60a5fa',focus:'Torso Completo',duration:'60 min',cal:'~400 kcal',
-    warmup:'<strong>5 min:</strong> Rotaciones de hombro, flexiones de pared lentas, remo con elástico ligero, círculos de codo.',
-    cooldown:'Estira pecho (mano en pared 30 seg), dorsal (colgada en barra 30 seg), bíceps y tríceps. Total 6-8 min.',
+  // ── LUNES: PECHO + ESPALDA + HOMBRO (Torso completo) ───────────
+  {name:'Lunes',short:'LUN',type:'torso',color:'#60a5fa',focus:'Pecho · Espalda · Hombro',duration:'65 min',cal:'~420 kcal',
+    warmup:'<strong>5-6 min:</strong> Rotaciones de hombro x20, flexiones de pared lentas x15, remo con elástico x15, círculos de codo x10 c/lado.',
+    cooldown:'Estira pecho (mano en pared 30 seg c/lado), dorsal (colgada en barra 30 seg), hombro cruzado 30 seg c/lado. Total 7-8 min.',
     exercises:[
-      {name:'Press banca con barra',sets:'2 × 6-8 reps',muscle:'Pecho',key:true,rmPct:85,rec:'Empieza con barra sola (20 kg). Sube 5 kg cuando completes 8 reps con técnica perfecta.',tip:'<strong>Base del empuje horizontal.</strong> Baja en 2 seg controlado, sube explosivo. Omóplatos retraídos. Agarre 1.5× ancho de hombros.',video:'https://www.youtube.com/watch?v=3k1WyyqWk-s',vname:'Press banca — técnica perfecta'},
-      {name:'Press inclinado con mancuernas',sets:'3 × 6-10 reps',muscle:'Pecho alto',key:false,rmPct:80,rec:'8-14 kg c/mancuerna.',tip:'<strong>Mejor con mancuernas.</strong> Mayor estiramiento del pectoral. Banco a 30°. Baja hasta estiramiento completo.',video:'https://www.youtube.com/watch?v=uEtiwYaT3d0',vname:'Press inclinado mancuernas'},
-      {name:'Jalón al pecho',sets:'3 × 6-10 reps',muscle:'Dorsal',key:true,rmPct:80,rec:'Máquina jalón o elástico fuerte en barra alta.',tip:'<strong>Activa dorsal amplio y bíceps.</strong> Agarre ancho prono. Arquea levemente el torso.',video:'https://www.youtube.com/watch?v=CAwf7n6Luuc',vname:'Jalón al pecho',hasAlt:true,altA:{label:'⚙️ Máquina jalón',tip:'Agarre ancho prono. Jala a la parte alta del pecho. Codos hacia atrás y abajo.'},altB:{label:'🪢 Elástico en barra',tip:'Ata elástico fuerte en barra alta. De rodillas, jala al pecho.'}},
-      {name:'Remo sentado en máquina',sets:'3 × 6-10 reps',muscle:'Dorsal + Romboides',key:false,rmPct:80,rec:'Máquina remo o elástico a la altura del pecho.',tip:'Espalda recta. Jala los codos hacia atrás lo máximo. Pausa 1 seg atrás.',video:'https://www.youtube.com/watch?v=HU2lghjU29Y',vname:'Remo sentado',hasAlt:true,altA:{label:'⚙️ Máquina remo',tip:'Pecho apoyado en el pad. Jala hacia el cuerpo con codos altos.'},altB:{label:'🏋️ Remo mancuerna',tip:'Apoya rodilla y mano en banco. Jala hacia la cadera.'}},
-      {name:'Laterales en máquina',sets:'3 × 10-15 reps',muscle:'Deltoides lateral',key:false,rmPct:70,rec:'Máquina o mancuernas 4-8 kg.',tip:'Activa el deltoides lateral que da anchura al hombro. Sube hasta altura de hombros. Baja en 3 seg.',video:'https://www.youtube.com/watch?v=3VcKaXpzqRo',vname:'Elevaciones laterales',hasAlt:true,altA:{label:'⚙️ Máquina lateral',tip:'La máquina mantiene tensión constante durante todo el rango.'},altB:{label:'🏋️ Mancuerna',tip:'Inclínate 10° adelante. Codo levemente doblado. Baja en 3 seg.'}},
+      {name:'Press banca con barra',sets:'3 × 6-8 reps',muscle:'Pecho',key:true,rmPct:85,
+        rec:'Empieza con barra sola (20 kg). Sube 2.5 kg cuando completes 8 reps con técnica perfecta.',
+        tip:'<strong>Compuesto principal de pecho.</strong> Omóplatos retraídos y bajos. Baja en 2 seg controlado hasta tocar el pecho. Sube explosivo. Agarre 1.5× ancho de hombros. Pies firmes en el suelo.',
+        hasAlt:true,altA:{label:'🏋️ Con barra',tip:'Mayor carga y activación global. Ideal como ejercicio principal.'},altB:{label:'🏋️ Con mancuernas',tip:'8-20 kg c/u. Mayor rango de movimiento. Baja hasta estiramiento completo.'}},
+      {name:'Press inclinado con mancuernas',sets:'3 × 8-12 reps',muscle:'Pecho alto',key:false,rmPct:78,
+        rec:'Empieza con 8-12 kg c/mancuerna. Banco a 30-45°.',
+        tip:'<strong>Activa la porción clavicular del pectoral</strong>, zona más difícil de desarrollar. Baja hasta que los codos queden debajo del hombro. Pausa 1 seg abajo.',
+        hasAlt:true,altA:{label:'🏋️ Mancuernas inclinado',tip:'Mayor rango y estiramiento. Banco a 30-45°.'},altB:{label:'⚙️ Máquina press inclinado',tip:'Más seguro para aprender la trayectoria. Mismo ángulo.'}},
+      {name:'Jalón al pecho en máquina',sets:'3 × 8-12 reps',muscle:'Dorsal',key:true,rmPct:80,
+        rec:'Máquina jalón o dominadas asistidas. Empieza ligero y sube progresivo.',
+        tip:'<strong>Ejercicio #1 para ancho de espalda.</strong> Agarre ancho prono. Arquea levemente el torso. Jala hasta la parte alta del pecho. Sube en 2 seg controlado.',
+        hasAlt:true,altA:{label:'⚙️ Máquina jalón',tip:'Agarre ancho prono. Codos hacia atrás y abajo. Pausa 1 seg abajo.'},altB:{label:'💪 Dominadas',tip:'La versión más efectiva. Dead hang completo cada rep. Usa lastres cuando puedas hacer 10+.'}},
+      {name:'Remo sentado en máquina',sets:'3 × 10-12 reps',muscle:'Dorsal medio + Romboides',key:false,rmPct:78,
+        rec:'Máquina remo o mancuerna unilateral en banco. Jala con los codos, no con las manos.',
+        tip:'<strong>Añade grosor a la espalda.</strong> Espalda recta, pecho arriba. Jala los codos hacia atrás lo máximo. Pausa 1 seg. Baja en 2 seg. No balancees el torso.',
+        hasAlt:true,altA:{label:'⚙️ Máquina remo',tip:'Pecho apoyado. Mayor aislamiento. Jala codos atrás.'},altB:{label:'🏋️ Remo mancuerna',tip:'Apoya rodilla y mano en banco. Jala hacia la cadera, no al pecho.'}},
+      {name:'Elevaciones laterales',sets:'4 × 12-15 reps',muscle:'Deltoides lateral',key:false,rmPct:65,
+        rec:'4-10 kg. Baja el peso si pierdes el control. Este músculo es pequeño y se lesiona fácil.',
+        tip:'<strong>El único ejercicio que aísla el deltoides lateral</strong> — el que da anchura al hombro. Sube hasta altura de hombros. Baja en 3 seg siempre. Nunca uses impulso.',
+        hasAlt:true,altA:{label:'🏋️ Mancuernas',tip:'Inclínate 10° adelante. Codo levemente doblado. Control total en la bajada.'},altB:{label:'⚙️ Máquina lateral',tip:'Tensión constante en todo el rango. Ideal para sentir el músculo.'}},
+      {name:'Curl bíceps en polea baja',sets:'3 × 10-15 reps',muscle:'Bíceps',key:false,rmPct:68,
+        rec:'Polea baja con cuerda o barra recta. 15-30 kg.',
+        tip:'<strong>La polea mantiene tensión en el estiramiento</strong>, algo que la mancuerna no logra. Codos fijos a los lados. Sube hasta máxima contracción. Baja 3 seg.',
+        hasAlt:true,altA:{label:'⚙️ Polea baja',tip:'Tensión constante. Cuerda o barra recta. Codos fijos.'},altB:{label:'🏋️ Curl mancuernas alternas',tip:'Mayor rango. Gira la muñeca al subir (supinación).'}},
     ]
   },
-  {name:'Martes',short:'MAR',type:'piernas',color:'#4ade80',focus:'Pierna Completa',duration:'65 min',cal:'~460 kcal',
-    warmup:'<strong>8 min:</strong> 20 sentadillas sin peso lentas, 15 zancadas en sitio, 10 buenos días con barra vacía.',
-    cooldown:'Estira cuádriceps (pie al glúteo 40 seg), isquios (pierna estirada en suelo), psoas (zancada profunda). Total 8-10 min.',
+
+  // ── MARTES: PIERNAS COMPLETO (Énfasis cuádriceps + glúteos) ────
+  {name:'Martes',short:'MAR',type:'piernas',color:'#4ade80',focus:'Piernas · Glúteos (énfasis cuáds)',duration:'70 min',cal:'~500 kcal',
+    warmup:'<strong>8 min:</strong> 20 sentadillas bodyweight lentas, 15 zancadas en sitio, 10 buenos días con barra vacía, 10 puentes de glúteo.',
+    cooldown:'Estira cuádriceps (pie al glúteo 45 seg c/lado), isquios (pierna estirada en suelo 45 seg), psoas (zancada profunda 45 seg). Total 10 min.',
     exercises:[
-      {name:'Sentadilla libre con barra',sets:'3 × 6-8 reps',muscle:'Cuádriceps + Glúteos',key:true,rmPct:85,rec:'Barra sola (20 kg). Sube 5 kg cuando completes 8 reps con técnica perfecta.',tip:'<strong>El rey de piernas.</strong> Pies a ancho de hombros, puntas levemente afuera. Baja hasta muslos paralelos.',video:'https://www.youtube.com/watch?v=ultWZbUMPL8',vname:'Sentadilla — técnica perfecta'},
-      {name:'Peso muerto',sets:'3 × 6-8 reps',muscle:'Isquios + Glúteos + Espalda',key:true,rmPct:85,rec:'Empieza con barra sola o ligera. Domina la técnica.',tip:'<strong>El ejercicio más completo del cuerpo.</strong> Espalda recta, pecho arriba, cadera hacia atrás.',video:'https://www.youtube.com/watch?v=1uDiW5--rAE',vname:'Peso muerto — técnica perfecta'},
-      {name:'Hip Thrust con barra',sets:'2 × 8-12 reps',muscle:'Glúteos',key:true,rmPct:75,rec:'Barra sola (20 kg). Sube 10 kg cuando completes 12 reps con pausa de 2 seg arriba.',tip:'<strong>Ejercicio #1 para glúteos según EMG.</strong> Espalda en el borde del banco. Aprieta el glúteo 2 seg arriba.',video:'https://www.youtube.com/watch?v=LM8XHLYJoYs',vname:'Hip thrust — técnica correcta'},
-      {name:'Elevación de pantorrillas',sets:'4 × 15 reps',muscle:'Pantorrillas',key:false,rmPct:70,rec:'En máquina, escalón o con mancuerna. Rango completo obligatorio.',tip:'Baja el talón completamente. Sube lo más alto posible. Pausa 1 seg arriba.',video:'https://www.youtube.com/watch?v=JbyjNymZOt0',vname:'Pantorrillas — técnica',hasAlt:true,altA:{label:'⚙️ Máquina pantorrilla',tip:'Tensión constante, mejor para cargas altas.'},altB:{label:'🏋️ Mancuerna en escalón',tip:'Borde de escalón con mancuerna. Una pierna a la vez.'}}
+      {name:'Sentadilla libre con barra',sets:'4 × 5-8 reps',muscle:'Cuádriceps + Glúteos + Core',key:true,rmPct:85,
+        rec:'Empieza con barra sola (20 kg). Sube 2.5 kg cada semana mientras la técnica sea perfecta.',
+        tip:'<strong>El rey de todos los ejercicios.</strong> Pies al ancho de hombros, puntas 15-30° afuera. Espalda recta, pecho arriba, rodillas siguen los pies. Baja hasta muslos paralelos al suelo. Core apretado todo el tiempo.',
+        hasAlt:true,altA:{label:'🏋️ Barra libre',tip:'Mayor activación del core y mayor transferencia atlética.'},altB:{label:'⚙️ Máquina Smith',tip:'Más seguro para aprender. Misma técnica, más estabilidad.'}},
+      {name:'Prensa de piernas',sets:'3 × 10-15 reps',muscle:'Cuádriceps + Glúteos',key:false,rmPct:75,
+        rec:'Pies en la parte alta de la plataforma = más glúteo. Pies bajos = más cuádriceps.',
+        tip:'<strong>Complementa perfectamente la sentadilla.</strong> No bloquees las rodillas arriba. Baja hasta 90° de flexión. Mayor seguridad para la espalda baja.',
+        hasAlt:true,altA:{label:'⚙️ Prensa 45°',tip:'Estándar. Pies a ancho de hombros, arriba para más glúteo.'},altB:{label:'⚙️ Prensa horizontal',tip:'Misma mecánica, diferente ángulo. Igualmente efectiva.'}},
+      {name:'Hip Thrust con barra',sets:'3 × 8-12 reps',muscle:'Glúteos',key:true,rmPct:75,
+        rec:'Barra sola (20 kg) con pad. Sube 5-10 kg cuando completes 12 reps con pausa de 2 seg arriba.',
+        tip:'<strong>Ejercicio #1 para glúteos según EMG (Contreras 2015).</strong> Espalda en el borde del banco, justo debajo de los omóplatos. Empuja con los talones. Aprieta el glúteo 2 seg arriba. Cadera completamente extendida.',
+        hasAlt:true,altA:{label:'🏋️ Con barra',tip:'Mayor carga posible. Pad en la cadera. 2 seg arriba.'},altB:{label:'🏋️ Con mancuerna',tip:'Para principiantes. 1 mancuerna pesada en la cadera.'}},
+      {name:'Extensión de cuádriceps',sets:'3 × 12-15 reps',muscle:'Cuádriceps (aislamiento)',key:false,rmPct:65,
+        rec:'Máquina extensora. Peso moderado, enfocate en la contracción. Pausa 2 seg arriba.',
+        tip:'<strong>El único aislamiento de cuádriceps.</strong> Sube hasta extensión completa. Pausa 2 seg arriba apretando el músculo. Baja en 3 seg controlado.',
+        hasAlt:true,altA:{label:'⚙️ Máquina extensora',tip:'Extensión completa. Pausa 2 seg arriba con contracción máxima.'},altB:{label:'🏋️ Sentadilla sumo',tip:'Sin máquina: sentadilla sumo 3×15 activa cuádriceps interno.'}},
+      {name:'Elevación de pantorrillas',sets:'4 × 15-20 reps',muscle:'Pantorrillas (gastrocnemio)',key:false,rmPct:70,
+        rec:'Máquina, escalón o con mancuerna. Rango COMPLETO obligatorio. Sin rango = sin resultados.',
+        tip:'Las pantorrillas necesitan rango completo y volumen alto. Baja el talón completamente. Sube lo más alto posible. Pausa 1 seg arriba. Bajada de 2-3 seg.',
+        hasAlt:true,altA:{label:'⚙️ Máquina pantorrilla',tip:'Mayor carga. Rango completo siempre.'},altB:{label:'🏋️ Escalón + mancuerna',tip:'Una pierna a la vez en el borde de un escalón.'}},
     ]
   },
+
+  // ── MIÉRCOLES: DESCANSO ─────────────────────────────────────────
   {name:'Miércoles',short:'MIE',type:'rest',color:'#444',focus:'Recuperación activa',duration:'Libre',cal:'—',rest:true,warmup:'',cooldown:'',exercises:[]},
-  {name:'Jueves',short:'JUE',type:'empuje',color:'#c084fc',focus:'Pecho · Hombros · Tríceps',duration:'60 min',cal:'~380 kcal',
-    warmup:'<strong>5 min:</strong> 20 círculos de hombro, 15 flexiones de pared lentas, 10 rotaciones de torso.',
-    cooldown:'Estira pecho (mano en pared 30 seg c/lado), tríceps (codo arriba 30 seg). Total 6-8 min.',
+
+  // ── JUEVES: PECHO + HOMBROS + TRÍCEPS (Empuje) ─────────────────
+  {name:'Jueves',short:'JUE',type:'empuje',color:'#c084fc',focus:'Pecho · Hombros · Tríceps',duration:'65 min',cal:'~400 kcal',
+    warmup:'<strong>5-6 min:</strong> 20 círculos de hombro, 15 flexiones de pared lentas, 10 rotaciones de torso, 10 press con elástico.',
+    cooldown:'Estira pecho (mano en pared 30 seg c/lado), tríceps (codo arriba 30 seg), hombro frontal (brazo cruzado). Total 6-8 min.',
     exercises:[
-      {name:'Press banca con barra',sets:'2 × 6-8 reps',muscle:'Pecho',key:true,rmPct:85,rec:'Barra sola (20 kg). Sube 5 kg cuando completes 8 reps.',tip:'<strong>Base del empuje horizontal.</strong> Baja en 2 seg controlado, sube explosivo.',video:'https://www.youtube.com/watch?v=3k1WyyqWk-s',vname:'Press banca — técnica perfecta'},
-      {name:'Press militar con mancuernas',sets:'3 × 6-8 reps',muscle:'Deltoides',key:true,rmPct:85,rec:'8-12 kg c/mancuerna.',tip:'<strong>Mejor con mancuernas.</strong> Mayor rango y menos estrés en el hombro.',video:'https://www.youtube.com/watch?v=qEwKCR5JCog',vname:'Press militar con mancuernas'},
-      {name:'Elevaciones laterales',sets:'3 × 12-15 reps',muscle:'Deltoides lateral',key:false,rmPct:70,rec:'4-8 kg.',tip:'Sube a altura de hombros, codo levemente doblado. Baja en 3 seg siempre.',video:'https://www.youtube.com/watch?v=3VcKaXpzqRo',vname:'Elevaciones laterales'},
-      {name:'Copa con cuerda (Tríceps)',sets:'3 × 8-12 reps',muscle:'Tríceps',key:false,rmPct:75,rec:'Elástico en punto alto o polea.',tip:'Codos pegados al cuerpo. Extiende completamente. Al final separa las manos.',video:'https://www.youtube.com/watch?v=fqsTgdTPRQU',vname:'Jalón tríceps con soga',hasAlt:true,altA:{label:'⚙️ Polea/soga',tip:'Soga en polea alta. Codos fijos.'},altB:{label:'🪢 Elástico',tip:'Elástico en punto alto. Codos pegados.'}}
+      {name:'Press inclinado con barra',sets:'3 × 6-10 reps',muscle:'Pecho alto + Hombro frontal',key:true,rmPct:82,
+        rec:'Banco a 30-45°. Barra sola + discos. Diferente ángulo al lunes para estímulo completo del pecho.',
+        tip:'<strong>Desarrolla el pecho alto</strong> que da la apariencia de un pecho completo y lleno. Agarre ligeramente más cerrado que en banca plana. Baja a la parte alta del pecho.',
+        hasAlt:true,altA:{label:'🏋️ Barra inclinada',tip:'Mayor carga. Banco a 30-45°. Baja a parte alta del pecho.'},altB:{label:'🏋️ Mancuernas inclinado',tip:'Mayor rango. Igual de efectivo. Más seguro para los hombros.'}},
+      {name:'Peck Deck (apertura en máquina)',sets:'3 × 12-15 reps',muscle:'Pecho (estiramiento)',key:false,rmPct:65,
+        rec:'Máquina de aperturas. Si no hay, usa mancuernas en banco plano.',
+        tip:'<strong>La apertura trabaja el pecho en estiramiento máximo</strong>, algo que el press no logra. Abre hasta sentir estiramiento profundo. Cierra apretando el pecho.',
+        hasAlt:true,altA:{label:'⚙️ Peck Deck máquina',tip:'Tensión constante. Abre lento, cierra apretando el pecho.'},altB:{label:'🏋️ Aperturas mancuernas',tip:'Banco plano. Codos levemente doblados. Abre hasta estiramiento.'}},
+      {name:'Press militar con mancuernas',sets:'4 × 6-10 reps',muscle:'Deltoides + Tríceps',key:true,rmPct:85,
+        rec:'8-16 kg c/mancuerna. Mejor que la barra: mayor rango, más seguro para el manguito rotador.',
+        tip:'<strong>Construye hombros grandes y estables.</strong> Sentado con respaldo o de pie. Codos a 90° al inicio. Sube hasta extensión casi completa. Nunca bloquees los codos.',
+        hasAlt:true,altA:{label:'🏋️ Mancuernas sentado',tip:'Más control. Respaldo a 80-90°. Codos a 90° al bajar.'},altB:{label:'🏋️ Barra de pie',tip:'Mayor carga. Activa más el core. Agarre al ancho de hombros.'}},
+      {name:'Elevaciones laterales con cable',sets:'3 × 12-15 reps',muscle:'Deltoides lateral',key:false,rmPct:65,
+        rec:'Cable a la altura del suelo o mancuernas 4-10 kg. Frecuencia alta = hombros anchos.',
+        tip:'<strong>2da sesión de laterales en la semana.</strong> El deltoides lateral responde bien al volumen. Cuerpo ligeramente inclinado. Brazo cruzado frente al cuerpo. Baja en 3 seg.',
+        hasAlt:true,altA:{label:'⚙️ Cable lateral',tip:'Tensión constante en todo el rango. Más efectivo que mancuernas.'},altB:{label:'🏋️ Mancuernas',tip:'Inclínate 10° adelante. Codo levemente doblado.'}},
+      {name:'Press francés con barra Z',sets:'3 × 10-12 reps',muscle:'Tríceps (cabeza larga)',key:false,rmPct:70,
+        rec:'Barra Z con 10-30 kg en banco inclinado 30°. El ángulo inclinado activa mejor la cabeza larga.',
+        tip:'<strong>Mejor ejercicio para la cabeza larga del tríceps</strong> (la más grande, la que da volumen al brazo). Codos apuntan al techo. Baja detrás de la cabeza lento.',
+        hasAlt:true,altA:{label:'🏋️ Barra Z banco inclinado',tip:'Más carga. Banco a 30°. Codos hacia arriba todo el tiempo.'},altB:{label:'🏋️ Mancuerna (copa)',tip:'Una mancuerna pesada con las dos manos. Detrás de la cabeza.'}},
+      {name:'Extensión tríceps en polea alta',sets:'3 × 12-15 reps',muscle:'Tríceps (aislamiento)',key:false,rmPct:68,
+        rec:'Polea alta con soga o barra recta. 20-50 kg. Codos fijos. Solo el antebrazo se mueve.',
+        tip:'<strong>Finaliza el trabajo de tríceps con tensión constante.</strong> Codos pegados al cuerpo. Extiende completamente. Al final con soga, separa las manos para máxima contracción.',
+        hasAlt:true,altA:{label:'⚙️ Polea alta soga',tip:'Codos fijos. Separa manos al final. Máxima contracción.'},altB:{label:'🪢 Elástico en punto alto',tip:'Mismo movimiento. Ideal sin máquina. Codos fijos.'}},
     ]
   },
-  {name:'Viernes',short:'VIE',type:'jale',color:'#fb923c',focus:'Espalda · Bíceps',duration:'55 min',cal:'~360 kcal',
-    warmup:'<strong>5 min:</strong> 10 colgadas en barra de 20 seg, 15 rotaciones de hombro, 10 remos con elástico.',
-    cooldown:'Cuelga en la barra 30 seg. Estira bíceps (brazo extendido). Total 5-6 min.',
+
+  // ── VIERNES: ESPALDA + BÍCEPS (Jale) ───────────────────────────
+  {name:'Viernes',short:'VIE',type:'jale',color:'#fb923c',focus:'Espalda · Bíceps',duration:'60 min',cal:'~380 kcal',
+    warmup:'<strong>5-6 min:</strong> 10 colgadas en barra de 20 seg, 15 rotaciones de hombro, 10 remos con elástico, 10 face pulls.',
+    cooldown:'Cuelga en la barra 30 seg. Estira dorsal (brazo extendido a la barra). Bíceps (brazo estirado contra pared). Total 6-7 min.',
     exercises:[
-      {name:'Remo con barra',sets:'3 × 6-10 reps',muscle:'Dorsal + Romboides',key:true,rmPct:80,rec:'Barra con poco peso. Espalda a 45°. Jala hacia el ombligo.',tip:'<strong>Rey del volumen de espalda.</strong> Espalda recta a 45°. Jala hacia el ombligo, NO hacia el pecho.',video:'https://www.youtube.com/watch?v=HU2lghjU29Y',vname:'Remo con barra',hasAlt:true,altA:{label:'🏋️ Barra',tip:'Espalda a 45°. Agarre prono ancho. Jala hacia ombligo.'},altB:{label:'🏋️ Mancuerna unilateral',tip:'Apoya rodilla y mano en banco. Jala hacia cadera.'}},
-      {name:'Jalón al pecho en máquina',sets:'3 × 6-10 reps',muscle:'Dorsal',key:true,rmPct:80,rec:'Máquina jalón o elástico fuerte.',tip:'Agarre ancho prono. Jala al pecho con codos hacia atrás y abajo.',video:'https://www.youtube.com/watch?v=CAwf7n6Luuc',vname:'Jalón al pecho',hasAlt:true,altA:{label:'⚙️ Máquina jalón',tip:'Agarre ancho prono. Jala a la parte alta del pecho.'},altB:{label:'💪 Dominadas',tip:'El jalón más efectivo. Dead hang completo.'}},
-      {name:'Curl bíceps con barra Z',sets:'3 × 8-12 reps',muscle:'Bíceps',key:false,rmPct:75,rec:'Barra Z con agarre supino.',tip:'Codos fijos a los costados. Sube explosivo. Baja en 3 seg.',video:'https://www.youtube.com/watch?v=HU2lghjU29Y',vname:'Curl bíceps barra Z',hasAlt:true,altA:{label:'🏋️ Barra Z/EZ',tip:'Agarre supino. Codos fijos. Sube explosivo.'},altB:{label:'🏋️ Mancuernas alternas',tip:'Mayor rango. Gira la muñeca al subir.'}},
+      {name:'Remo con barra',sets:'4 × 6-10 reps',muscle:'Dorsal + Trapecio + Romboides',key:true,rmPct:82,
+        rec:'Empieza con barra sola. Espalda a 45°, nunca más vertical. Jala hacia el ombligo, NO hacia el pecho.',
+        tip:'<strong>El mejor ejercicio de volumen para la espalda.</strong> Espalda recta a 45°. Agarre prono ancho. Jala los codos hacia atrás lo máximo. Pausa 1 seg. Baja en 2 seg. No balancees.',
+        hasAlt:true,altA:{label:'🏋️ Barra prono',tip:'Agarre ancho. Espalda a 45°. Jala hacia ombligo.'},altB:{label:'🏋️ Mancuerna unilateral',tip:'Un apoyo en el banco. Jala hacia la cadera. Mayor rango.'}},
+      {name:'Jalón al pecho agarre cerrado',sets:'3 × 10-12 reps',muscle:'Dorsal + Bíceps',key:false,rmPct:78,
+        rec:'Barra V o agarre neutro cerrado. Activa más el dorsal inferior.',
+        tip:'<strong>El agarre cerrado activa más el dorsal inferior</strong> vs el agarre ancho del lunes. Jala hacia el pecho apretando el dorsal. Pausa 1 seg abajo.',
+        hasAlt:true,altA:{label:'⚙️ Jalón agarre V',tip:'Barra V o agarre neutro. Mayor contracción del dorsal.'},altB:{label:'💪 Dominadas agarre cerrado',tip:'Agarre supino cerrado (chin-ups). Excelente activación bíceps.'}},
+      {name:'Remo sentado unilateral en cable',sets:'3 × 10-12 reps',muscle:'Dorsal + Romboides',key:false,rmPct:75,
+        rec:'Cable o mancuerna. Trabaja un lado a la vez para corregir desbalances musculares.',
+        tip:'<strong>Corrige desequilibrios entre lado derecho e izquierdo.</strong> Rota el torso levemente hacia el lado que jala. Mayor rango de movimiento que el bilateral.',
+        hasAlt:true,altA:{label:'⚙️ Cable unilateral',tip:'Tensión constante. Rota el torso hacia el lado que jala.'},altB:{label:'🏋️ Mancuerna en banco',tip:'Apoyo de rodilla y mano. Jala hacia la cadera con rotación.'}},
+      {name:'Curl bíceps con barra Z',sets:'3 × 8-12 reps',muscle:'Bíceps',key:true,rmPct:78,
+        rec:'Barra Z 10-30 kg. Agarre supino. Más cómodo para las muñecas que la barra recta.',
+        tip:'<strong>Compuesto principal de bíceps.</strong> Codos fijos a los costados. Sube explosivo hasta máxima contracción. Baja en 3 seg controlado. No balancees la espalda.',
+        hasAlt:true,altA:{label:'🏋️ Barra Z/EZ',tip:'Agarre supino. Codos fijos. 3 seg de bajada.'},altB:{label:'🏋️ Mancuernas alternas',tip:'Mayor rango. Gira la muñeca al subir (supinación completa).'}},
+      {name:'Curl inclinado con mancuernas',sets:'3 × 10-12 reps',muscle:'Bíceps cabeza larga',key:false,rmPct:70,
+        rec:'6-14 kg c/mancuerna. Banco inclinado a 45-60°. Este ángulo activa la cabeza larga del bíceps.',
+        tip:'<strong>El mejor ejercicio para el peak del bíceps.</strong> Banco inclinado a 45-60°. Brazo cuelga libremente. Sube girando la muñeca. El estiramiento inicial es clave.',
+        hasAlt:true,altA:{label:'🏋️ Inclinado mancuernas',tip:'Banco 45-60°. Brazo cuelga. Supinación al subir.'},altB:{label:'⚙️ Curl en polea baja',tip:'Tensión en el estiramiento. Mismo beneficio sin banco inclinado.'}},
+      {name:'Curl martillo',sets:'2 × 12-15 reps',muscle:'Braquial + Braquiorradial',key:false,rmPct:68,
+        rec:'6-16 kg c/mancuerna. Agarre neutro (palma hacia adentro). No gires la muñeca.',
+        tip:'<strong>Desarrolla el braquial</strong>, el músculo debajo del bíceps que empuja el bíceps hacia arriba, haciéndolo lucir más grande. Agarre neutro. Codos fijos.',
+        hasAlt:true,altA:{label:'🏋️ Mancuernas alternas',tip:'Agarre neutro. Codos fijos. Baja en 2 seg.'},altB:{label:'🏋️ Martillo con cuerda',tip:'Polea baja con cuerda. Agarre neutro. Tensión constante.'}},
     ]
   },
-  {name:'Sábado',short:'SAB',type:'piernas',color:'#f59e0b',focus:'Pierna Completa',duration:'65 min',cal:'~460 kcal',
-    warmup:'<strong>8 min:</strong> 20 sentadillas sin peso lentas, 15 zancadas en sitio, movilidad de cadera.',
-    cooldown:'Estira cuádriceps, isquios, psoas. Total 8-10 min.',
+
+  // ── SÁBADO: PIERNAS (Énfasis isquios + glúteos) ─────────────────
+  {name:'Sábado',short:'SAB',type:'piernas',color:'#f59e0b',focus:'Piernas · Glúteos (énfasis isquios)',duration:'70 min',cal:'~490 kcal',
+    warmup:'<strong>8 min:</strong> 20 sentadillas bodyweight, 15 zancadas, 10 buenos días con barra vacía, movilidad de cadera y tobillo.',
+    cooldown:'Estira isquios (pierna estirada en suelo 45 seg), psoas (zancada profunda 45 seg), glúteo (figura 4). Total 10 min.',
     exercises:[
-      {name:'Sentadillas búlgaras en Smith',sets:'3 × 6-10 reps',muscle:'Glúteos + Cuádriceps',key:true,rmPct:80,rec:'Máquina Smith o peso libre.',tip:'<strong>Reemplaza la prensa unilateral.</strong> Torso inclinado = más glúteo.',video:'https://www.youtube.com/watch?v=2C-uNgKwPLE',vname:'Sentadilla búlgara',hasAlt:true,altA:{label:'⚙️ Máquina Smith',tip:'Mayor estabilidad. Ideal para aprender.'},altB:{label:'🏋️ Mancuernas',tip:'6-12 kg c/mano. Mismo movimiento.'}},
-      {name:'Peso muerto rumano',sets:'3 × 6-8 reps',muscle:'Isquios + Glúteos',key:true,rmPct:85,rec:'12-20 kg c/mancuerna o barra.',tip:'<strong>Mejor ejercicio para isquios.</strong> Piernas casi rectas. Nunca redondees la espalda.',video:'https://www.youtube.com/watch?v=1uDiW5--rAE',vname:'Peso muerto rumano',hasAlt:true,altA:{label:'🏋️ Con barra',tip:'Mayor carga posible. Espalda recta.'},altB:{label:'🏋️ Con mancuernas',tip:'Más fácil de controlar. Mismo movimiento.'}},
-      {name:'Hip Thrust con barra',sets:'2 × 8-12 reps',muscle:'Glúteos',key:true,rmPct:75,rec:'Barra sola (20 kg). Sube 10 kg cuando completes 12 reps.',tip:'<strong>Ejercicio #1 para glúteos.</strong> Espalda en el borde del banco. Aprieta 2 seg arriba.',video:'https://www.youtube.com/watch?v=LM8XHLYJoYs',vname:'Hip thrust — técnica correcta'},
+      {name:'Sentadillas búlgaras en Smith',sets:'3 × 8-10 reps',muscle:'Glúteos + Cuádriceps',key:true,rmPct:78,
+        rec:'Máquina Smith o mancuernas. Pie trasero en banco. Torso inclinado = más glúteo.',
+        tip:'<strong>La zancada búlgara iguala a la sentadilla en activación de glúteos.</strong> Pie de atrás en el banco. Baja hasta que la rodilla trasera casi toque el suelo. Torso inclinado hacia adelante.',
+        hasAlt:true,altA:{label:'⚙️ Máquina Smith',tip:'Mayor estabilidad. Ideal para aprender. Torso inclinado 10-15°.'},altB:{label:'🏋️ Mancuernas',tip:'6-20 kg c/mano. Mismo movimiento. Más inestabilidad = más core.'}},
+      {name:'Peso muerto rumano',sets:'4 × 6-10 reps',muscle:'Isquios + Glúteos',key:true,rmPct:85,
+        rec:'Barra o mancuernas. Piernas casi rectas (10-15° de flexión). Nunca redondees la espalda.',
+        tip:'<strong>El mejor ejercicio para isquios según EMG.</strong> Espalda recta y neutral. Empuja las caderas hacia atrás (no dobles las rodillas). Baja hasta sentir fuerte estiramiento en isquios. Sube empujando las caderas hacia adelante.',
+        hasAlt:true,altA:{label:'🏋️ Con barra',tip:'Mayor carga. Espalda neutra. Caderas atrás.'},altB:{label:'🏋️ Con mancuernas',tip:'Más fácil de controlar. Mismo patrón de movimiento.'}},
+      {name:'Curl femoral sentado en máquina',sets:'3 × 10-15 reps',muscle:'Isquios (aislamiento)',key:false,rmPct:68,
+        rec:'Máquina curl femoral sentado. El ángulo sentado activa la cabeza corta del isquio que el tumbado no alcanza.',
+        tip:'<strong>El curl femoral sentado activa más isquio que el tumbado</strong> (Schoenfeld 2020). Baja en 3 seg. Pausa 1 seg abajo. Sube explosivo.',
+        hasAlt:true,altA:{label:'⚙️ Curl femoral sentado',tip:'Mayor activación. Baja 3 seg. Pausa abajo.'},altB:{label:'⚙️ Curl femoral tumbado',tip:'Versión clásica. Igualmente efectiva. Una pierna a la vez.'}},
+      {name:'Hip Thrust con barra',sets:'3 × 10-15 reps',muscle:'Glúteos',key:true,rmPct:72,
+        rec:'Segunda sesión de glúteos en la semana. Usa más reps y menos peso que el martes.',
+        tip:'<strong>2da sesión semanal de hip thrust.</strong> El glúteo se recupera rápido. Esta vez más reps (10-15) con peso moderado y 3 seg de pausa arriba. Máxima contracción.',
+        hasAlt:true,altA:{label:'🏋️ Barra con pad',tip:'10-15 reps. 3 seg arriba. Más volumen que el martes.'},altB:{label:'🏋️ Mancuerna unilateral',tip:'1 mancuerna en la cadera. Una cadera a la vez. Corrige desbalances.'}},
+      {name:'Extensión cuádriceps + Curl femoral',sets:'2 × 15 reps c/u',muscle:'Cuádriceps + Isquios',key:false,rmPct:62,
+        rec:'Superset: extensión inmediatamente seguida de curl. Ahorra tiempo y aumenta la bomba muscular.',
+        tip:'<strong>Superset antagonista.</strong> Haz extensión de cuádriceps → sin descanso → curl femoral. Descansa 90 seg. Este método ahorra 15 min y mantiene la tensión muscular.',
+        hasAlt:true,altA:{label:'⚙️ Máquinas extensora + curl',tip:'Superset. Sin descanso entre ejercicios. 90 seg entre series.'},altB:{label:'🏋️ Por separado',tip:'Si no hay máquinas, hazlos por separado con 60 seg de descanso.'}},
     ]
   },
+
+  // ── DOMINGO: DESCANSO ───────────────────────────────────────────
   {name:'Domingo',short:'DOM',type:'rest',color:'#444',focus:'Descanso total',duration:'Libre',cal:'—',rest:true,warmup:'',cooldown:'',exercises:[]}
 ];
 
@@ -1050,29 +1240,56 @@ const NO_EQUIP = [
 
 // ── GIF MAP por ejercicio ─────────────────────────────────────────
 const EX_GIFS = {
-  'Press banca con barra':    'https://media.giphy.com/media/3o7TKSxdMEkOYPdDXi/giphy.gif',
-  'Press inclinado con mancuernas': 'https://media.giphy.com/media/l0HlNaQ6gWfllcjDO/giphy.gif',
-  'Jalón al pecho':           'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif',
-  'Jalón al pecho en máquina':'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif',
-  'Remo sentado en máquina':  'https://media.giphy.com/media/l0HlBO4BW4F8fj2j6/giphy.gif',
-  'Remo con barra':           'https://media.giphy.com/media/l0HlBO4BW4F8fj2j6/giphy.gif',
-  'Laterales en máquina':     'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif',
-  'Elevaciones laterales':    'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif',
-  'Press militar con mancuernas': 'https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif',
-  'Copa con cuerda (Tríceps)':'https://media.giphy.com/media/26ufcYfp9Wnp0GVQQ/giphy.gif',
-  'Sentadilla libre con barra':'https://media.giphy.com/media/3oEjI5P7RD2e9MvGCI/giphy.gif',
-  'Sentadillas búlgaras en Smith':'https://media.giphy.com/media/3oEjI5P7RD2e9MvGCI/giphy.gif',
-  'Peso muerto':              'https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif',
-  'Peso muerto rumano':       'https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif',
-  'Hip Thrust con barra':     'https://media.giphy.com/media/3o7TKSxdMEkOYPdDXi/giphy.gif',
-  'Elevación de pantorrillas':'https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif',
-  'Curl bíceps con barra Z':  'https://media.giphy.com/media/l0HlHFRbmaZtBqhsI/giphy.gif',
+  'Press banca con barra':             'https://media.giphy.com/media/3o7TKSxdMEkOYPdDXi/giphy.gif',
+  'Press inclinado con mancuernas':    'https://media.giphy.com/media/l0HlNaQ6gWfllcjDO/giphy.gif',
+  'Press inclinado con barra':         'https://media.giphy.com/media/l0HlNaQ6gWfllcjDO/giphy.gif',
+  'Jalón al pecho en máquina':         'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif',
+  'Jalón al pecho agarre cerrado':     'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif',
+  'Remo sentado en máquina':           'https://media.giphy.com/media/l0HlBO4BW4F8fj2j6/giphy.gif',
+  'Remo con barra':                    'https://media.giphy.com/media/l0HlBO4BW4F8fj2j6/giphy.gif',
+  'Remo sentado unilateral en cable':  'https://media.giphy.com/media/l0HlBO4BW4F8fj2j6/giphy.gif',
+  'Elevaciones laterales':             'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif',
+  'Elevaciones laterales con cable':   'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif',
+  'Laterales en máquina':              'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif',
+  'Press militar con mancuernas':      'https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif',
+  'Peck Deck (apertura en máquina)':   'https://media.giphy.com/media/26ufcYfp9Wnp0GVQQ/giphy.gif',
+  'Extensión tríceps en polea alta':   'https://media.giphy.com/media/26ufcYfp9Wnp0GVQQ/giphy.gif',
+  'Press francés con barra Z':         'https://media.giphy.com/media/26ufcYfp9Wnp0GVQQ/giphy.gif',
+  'Sentadilla libre con barra':        'https://media.giphy.com/media/3oEjI5P7RD2e9MvGCI/giphy.gif',
+  'Sentadillas búlgaras en Smith':     'https://media.giphy.com/media/3oEjI5P7RD2e9MvGCI/giphy.gif',
+  'Prensa de piernas':                 'https://media.giphy.com/media/3oEjI5P7RD2e9MvGCI/giphy.gif',
+  'Peso muerto rumano':                'https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif',
+  'Hip Thrust con barra':              'https://media.giphy.com/media/3o7TKSxdMEkOYPdDXi/giphy.gif',
+  'Curl femoral sentado en máquina':   'https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif',
+  'Elevación de pantorrillas':         'https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif',
+  'Extensión de cuádriceps':           'https://media.giphy.com/media/3oEjI5P7RD2e9MvGCI/giphy.gif',
+  'Curl bíceps con barra Z':           'https://media.giphy.com/media/l0HlHFRbmaZtBqhsI/giphy.gif',
+  'Curl bíceps en polea baja':         'https://media.giphy.com/media/l0HlHFRbmaZtBqhsI/giphy.gif',
+  'Curl inclinado con mancuernas':     'https://media.giphy.com/media/l0HlHFRbmaZtBqhsI/giphy.gif',
+  'Curl martillo':                     'https://media.giphy.com/media/l0HlHFRbmaZtBqhsI/giphy.gif',
+  'Extensión cuádriceps + Curl femoral':'https://media.giphy.com/media/3oEjI5P7RD2e9MvGCI/giphy.gif',
 };
 let curDay = (()=>{let d=new Date().getDay();return d===0?6:d-1;})();
 let oneRM={}, weekNum=1, checked={}, actChk={}, weights={}, bodyMeas=[], expanded={}, altState={};
 let currentFoodCat='todos', currentRelaxCat='todos', feedbackStars=0;
 
-const EX_RM_MAP={'0_0':'press_banca','1_0':'sentadilla','1_1':'peso_muerto','1_2':'hip_thrust','3_0':'press_banca_jue','3_1':'press_militar','4_0':'remo_barra','5_0':'bulg_smith','5_1':'rdl','5_2':'hip_thrust_sab'};
+const EX_RM_MAP={
+  // Lunes: Pecho+Espalda+Hombro
+  '0_0':'press_banca',        // Press banca
+  '0_2':'jalon_pecho',        // Jalón al pecho
+  // Martes: Piernas cuáds
+  '1_0':'sentadilla',         // Sentadilla
+  '1_2':'hip_thrust',         // Hip thrust
+  // Jueves: Empuje
+  '3_0':'press_inclinado',    // Press inclinado barra
+  '3_2':'press_militar',      // Press militar
+  // Viernes: Jale
+  '4_0':'remo_barra',         // Remo barra
+  '4_3':'curl_barra',         // Curl bíceps barra Z
+  // Sábado: Piernas isquios
+  '5_1':'peso_muerto_rum',    // Peso muerto rumano
+  '5_3':'hip_thrust_sab',     // Hip thrust sábado
+};
 const TYPE_COLOR={torso:'#60a5fa',piernas:'#4ade80',empuje:'#c084fc',jale:'#fb923c',rest:'#444'};
 const TYPE_LABEL={torso:'Torso',piernas:'Piernas',empuje:'Pecho·Hombros·Tríceps',jale:'Espalda·Bíceps',rest:'Descanso'};
 
@@ -1184,6 +1401,11 @@ function renderWorkout(){
   const done=d.exercises.filter((_,i)=>checked[`${k}_${i}`]).length;
   const pct=total>0?Math.round((done/total)*100):0;
   const col=TYPE_COLOR[d.type];
+
+  // Water tracker
+  const waterCups = Array.from({length:8},(_,i)=>`
+    <span class="water-cup${i<waterToday?' filled':''}" onclick="toggleWater(${i})">💧</span>`).join('');
+
   let html=`<div class="fade">
     <div class="hero">
       <div class="hero-cat" style="color:${col}">${TYPE_LABEL[d.type]}</div>
@@ -1196,6 +1418,14 @@ function renderWorkout(){
       </div>
     </div>
     <div class="prog-track"><div class="prog-fill" style="width:${pct}%"></div></div>
+    ${pct===100?`<div style="background:rgba(61,214,140,.08);border:0.5px solid rgba(61,214,140,.2);border-radius:var(--r2);padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;gap:10px"><span style="font-size:22px">🎉</span><div><div style="font-size:14px;font-weight:700;color:var(--green)">¡Entrenamiento completado!</div><div style="font-size:11px;color:var(--t2);margin-top:2px">Excelente trabajo hoy. El músculo crece en el descanso.</div></div></div>`:''}
+    <div style="background:var(--bg2);border:0.5px solid var(--b);border-radius:var(--r2);padding:12px 14px;margin-bottom:12px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3)">💧 Hidratación — <span id="waterCount">${waterToday}</span>/8 vasos</div>
+        <div style="font-size:10px;color:var(--t3)">${Math.round(waterToday*250)}ml / 2000ml</div>
+      </div>
+      <div class="water-track">${waterCups}</div>
+    </div>
     <div class="slbl">Calentamiento</div>
     <div class="icard"><div class="iico iico-blue">🔥</div><div class="itext">${d.warmup}</div></div>
     <div class="slbl">Ejercicios</div><div class="exlist">`;
@@ -1219,6 +1449,16 @@ function renderWorkout(){
       <div class="alt-content${useAlt==='A'?' show':''}"><div class="alt-tip">${ex.altA.tip}</div></div>
       <div class="alt-content${useAlt==='B'?' show':''}"><div class="alt-tip">${ex.altB.tip}</div></div>`;
     }
+    // Series tracker
+    const setsMatch = ex.sets.match(/(\d+)\s*[×x]/);
+    const totalSeries = setsMatch ? parseInt(setsMatch[1]) : 3;
+    const serKey = `${k}_${i}_series`;
+    const doneSeries = seriesDone[serKey] || 0;
+    const restTime = ex.key ? 120 : 90;
+    const serBtns = Array.from({length:totalSeries},(_,si)=>`
+      <div class="serie-btn${si<doneSeries?' done-s':si===doneSeries?' current-s':''}"
+        onclick="event.stopPropagation();toggleSerie('${serKey}',${totalSeries},${restTime})">${si+1}</div>`).join('');
+
     // GIF del ejercicio
     const gifUrl = EX_GIFS[ex.name];
     if(gifUrl){
@@ -1228,10 +1468,14 @@ function renderWorkout(){
       </div>`;
     }
     html+=`<div class="tipbox">${ex.tip}</div>
-      <a href="${ex.video}" target="_blank" class="ytlink">
-        <div class="ytico"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
-        <div><div class="yttxt">${ex.vname}</div><div class="ytsub">Ver tutorial en YouTube</div></div>
-      </a></div></div>`;
+    <div style="margin:10px 0">
+      <div style="font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Series completadas</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="series-tracker">${serBtns}</div>
+        <button onclick="event.stopPropagation();startRestTimer(${restTime})" style="background:rgba(245,197,24,.1);border:0.5px solid rgba(245,197,24,.2);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;color:var(--acc);cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap">⏱ ${restTime}s</button>
+      </div>
+    </div>
+</div></div>`;
   });
   html+=`</div><div class="slbl">Enfriamiento</div><div class="icard"><div class="iico iico-teal">❄️</div><div class="itext">${d.cooldown}</div></div>${actCard(false)}</div>`;
   main.innerHTML=html;
@@ -1607,7 +1851,7 @@ function renderProfile(){
         ${streak>2?`<div class="prof-badge prof-badge-orange">🔥 ${streak} días racha</div>`:''}
       </div>
     </div>
-
+    <div id="goalProgressBlock"></div>
     <div class="prof-grid">
       <div class="prof-stat"><div class="prof-stat-num">${streak}</div><div class="prof-stat-lbl">Días racha</div></div>
       <div class="prof-stat"><div class="prof-stat-num">${totalEver}</div><div class="prof-stat-lbl">Ejercicios totales</div></div>
@@ -1644,6 +1888,20 @@ function renderProfile(){
           <div class="action-btn-ico">⭐</div><div class="action-btn-lbl" style="color:var(--acc)">Valorar app</div>
         </button>
       </div>
+      <!-- COMMUNITY COMMENTS -->
+      <div style="margin-top:12px">
+        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:10px">💬 Comunidad FitApp</div>
+        <div id="communityComments" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;max-height:300px;overflow-y:auto">
+          <div style="text-align:center;padding:20px;color:var(--t3);font-size:13px">Cargando comentarios... 🔄</div>
+        </div>
+        <div style="background:var(--bg3);border-radius:var(--r2);padding:12px;border:0.5px solid var(--b2)">
+          <textarea id="communityInput" placeholder="Comparte un tip, motivación o logro con la comunidad..." style="width:100%;background:transparent;border:none;color:var(--t);font-family:'DM Sans',sans-serif;font-size:13px;resize:none;min-height:70px;outline:none;line-height:1.6"></textarea>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px">
+            <span style="font-size:11px;color:var(--t3)" id="commUserLabel">Cargando...</span>
+            <button onclick="postComment()" style="background:linear-gradient(135deg,var(--acc),var(--acc2));color:#000;border:none;border-radius:var(--r);padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif">Publicar 💬</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="prof-section">
@@ -1654,6 +1912,12 @@ function renderProfile(){
       <div class="prof-row" style="cursor:pointer" onclick="signInWithGoogle()"><div class="prof-row-left"><div class="prof-row-ico" style="background:rgba(96,165,250,.1)">☁️</div><div><div class="prof-row-label">Iniciar sesión con Google</div><div class="prof-row-sub">Para sincronizar tu progreso</div></div></div><div style="color:var(--t3);font-size:18px">›</div></div>`}
     </div>
   </div>`;
+  // Render goal progress
+  const gp = calcGoalProgress();
+  const gpEl = document.getElementById('goalProgressBlock');
+  if(gpEl && gp){
+    gpEl.innerHTML = '<div class="goal-progress" style="margin:10px 0"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div style="font-size:12px;font-weight:700;color:var(--t)">🎯 Progreso hacia tu meta</div><div style="font-size:14px;color:var(--acc);font-weight:800;font-family:Barlow Condensed,sans-serif">' + gp.pct + '%</div></div><div class="goal-bar-wrap"><div class="goal-bar-fill" style="width:' + gp.pct + '%"></div></div><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--t3);margin-top:4px"><span>Actual: <b style="color:var(--t)">' + gp.cur + 'kg</b></span><span>' + Math.abs(gp.diff) + 'kg ' + (gp.losing ? 'por bajar' : 'por ganar') + '</span><span>Meta: <b style="color:var(--acc)">' + gp.goal + 'kg</b></span></div></div>';
+  }
 }
 
 window.editProfile=()=>{
@@ -1711,7 +1975,7 @@ window.showTab=(tab,btn)=>{
   else if(tab==='tranquilidad')renderRelax();
   else if(tab==='test'){window.testState=null;renderTestPage();}
   else if(tab==='medidas')renderMedidas();
-  else if(tab==='perfil')renderProfile();
+  else if(tab==='perfil'){renderProfile();setTimeout(()=>{loadComments();const lbl=document.getElementById('commUserLabel');if(lbl)lbl.textContent=currentUser?(currentUser.displayName||'Atleta'):'Inicia sesión para comentar';},100);}
   else renderStats();
   document.getElementById('main').scrollTop=0;
 };
@@ -1749,7 +2013,11 @@ function calcStreak(){
 
 // ── AUTH ─────────────────────────────────────────────────────────
 window.signInWithGoogle=async()=>{try{await signInWithPopup(auth,provider);}catch(e){alert('Error al iniciar sesión.');}};
-window.doSignOut=()=>{if(confirm('¿Cerrar sesión?'))signOut(auth);};
+window.doSignOut=()=>{
+  if(confirm('¿Cerrar sesión? Tu progreso está guardado en la nube.')){
+    signOut(auth);
+  }
+};
 window.skipLogin=()=>{
   document.getElementById('loginScreen').classList.remove('show');
   const savedOb=localStorage.getItem('fitapp_ob');
@@ -1803,28 +2071,231 @@ function bootApp(){
 setTimeout(bootApp, 1500);
 
 // Firebase corre en paralelo — si hay sesión activa, enriquece la UI
+let lastUID = null;
+
 onAuthStateChanged(auth, async(user)=>{
   if(user){
+    // If different account logged in → reset all state
+    if(lastUID && lastUID !== user.uid){
+      checked={}; oneRM={}; actChk={}; weights={}; bodyMeas=[]; weekNum=1;
+    }
+    lastUID = user.uid;
     currentUser = user;
-    // Actualiza avatar si ya está visible
+    // Update avatar
     const av = document.getElementById('userAvatar');
     if(av){
       if(user.photoURL) av.innerHTML=`<img src="${user.photoURL}" class="user-avatar" onclick="showTab('perfil',document.querySelectorAll('.nbtn')[6])"/>`;
       else av.textContent = user.displayName ? user.displayName[0].toUpperCase() : '👤';
     }
-    // Carga datos de la nube en segundo plano
+    // Load cloud data
     try{ await loadFromCloud(); }catch(e){ console.log('Cloud load:',e); }
-    // Si la app ya está visible, refresca la pantalla actual
-    if(!document.getElementById('appHeader').style.display || document.getElementById('appHeader').style.display !== 'none'){
+    // If app already visible, refresh
+    const header = document.getElementById('appHeader');
+    if(header && header.style.display !== 'none'){
       buildStrip(); renderWorkout();
     }
   } else {
+    // SIGNED OUT → reset everything and go back to start
+    lastUID = null;
     currentUser = null;
+    checked={}; oneRM={}; actChk={}; weights={}; bodyMeas=[]; weekNum=1;
+    // Hide app
+    document.getElementById('appHeader').style.display='none';
+    document.getElementById('main').style.display='none';
+    document.getElementById('bnav').style.display='none';
+    // Clear ob so onboarding runs again for new user
+    localStorage.removeItem('fitapp_ob');
+    // Show onboarding fresh
+    document.getElementById('onboardScreen').classList.add('show');
+    obRender();
   }
 });
 
-// Expose
-window.renderTestPage=renderTestPage;window.renderTestList=renderTestList;
+// ── REST TIMER ────────────────────────────────────────────────────
+let restInterval = null;
+let restSeconds = 0;
+window.startRestTimer = (secs=90) => {
+  clearInterval(restInterval);
+  restSeconds = secs;
+  document.getElementById('restTimerNum').textContent = secs;
+  document.getElementById('restTimerModal').classList.add('show');
+  restInterval = setInterval(()=>{
+    restSeconds--;
+    const el = document.getElementById('restTimerNum');
+    if(el) el.textContent = restSeconds;
+    if(restSeconds <= 0){
+      clearInterval(restInterval);
+      document.getElementById('restTimerModal').classList.remove('show');
+      // Vibrate if supported
+      if(navigator.vibrate) navigator.vibrate([200,100,200]);
+    }
+  }, 1000);
+};
+window.skipRestTimer = () => {
+  clearInterval(restInterval);
+  document.getElementById('restTimerModal').classList.remove('show');
+};
+
+// ── PERSONAL RECORDS ─────────────────────────────────────────────
+let personalRecords = JSON.parse(localStorage.getItem('fitapp_pr') || '{}');
+function checkPR(exName, weight){
+  if(!weight || isNaN(weight)) return false;
+  const prev = personalRecords[exName] || 0;
+  if(parseFloat(weight) > prev){
+    personalRecords[exName] = parseFloat(weight);
+    localStorage.setItem('fitapp_pr', JSON.stringify(personalRecords));
+    return true;
+  }
+  return false;
+}
+
+// ── WATER TRACKER ─────────────────────────────────────────────────
+let waterToday = parseInt(localStorage.getItem('fitapp_water_'+new Date().toDateString()) || '0');
+window.toggleWater = (i) => {
+  waterToday = waterToday === i+1 ? i : i+1;
+  localStorage.setItem('fitapp_water_'+new Date().toDateString(), waterToday);
+  const cups = document.querySelectorAll('.water-cup');
+  cups.forEach((c,ci) => c.classList.toggle('filled', ci < waterToday));
+  document.getElementById('waterCount').textContent = waterToday;
+};
+
+// ── SERIES TRACKER ────────────────────────────────────────────────
+let seriesDone = {};
+window.toggleSerie = (key, total, restTime) => {
+  if(!seriesDone[key]) seriesDone[key] = 0;
+  const prev = seriesDone[key];
+  seriesDone[key] = prev >= total ? 0 : prev + 1;
+  // Start rest timer when completing a set (not when resetting)
+  if(seriesDone[key] > prev) startRestTimer(restTime || 90);
+  // Re-render workout to update series buttons
+  renderWorkout();
+};
+
+// ── NOTIFICATIONS ─────────────────────────────────────────────────
+let notifications = JSON.parse(localStorage.getItem('fitapp_notifs') || '[]');
+function addNotif(msg){
+  notifications.unshift({msg, time: new Date().toLocaleTimeString('es-PE',{hour:'2-digit',minute:'2-digit'})});
+  if(notifications.length > 20) notifications.pop();
+  localStorage.setItem('fitapp_notifs', JSON.stringify(notifications));
+  const dot = document.getElementById('notifDot');
+  if(dot) dot.style.display = 'block';
+}
+window.showNotifs = () => {
+  const dot = document.getElementById('notifDot');
+  if(dot) dot.style.display = 'none';
+  const main = document.getElementById('main');
+  const items = notifications.length ? notifications.map(n=>`
+    <div style="display:flex;gap:10px;padding:10px 0;border-bottom:0.5px solid var(--b)">
+      <span style="font-size:16px">🔔</span>
+      <div><div style="font-size:13px;color:var(--t)">${n.msg}</div>
+      <div style="font-size:10px;color:var(--t3);margin-top:2px">${n.time}</div></div>
+    </div>`).join('') : '<div style="text-align:center;padding:32px;color:var(--t3)">Sin notificaciones aún</div>';
+  main.innerHTML = `<div class="fade" style="padding:14px 0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:var(--t)">Notificaciones</div>
+      <button onclick="notifications=[];localStorage.removeItem('fitapp_notifs');showNotifs()" style="background:var(--bg2);border:0.5px solid var(--b2);border-radius:8px;padding:5px 12px;font-size:11px;color:var(--t3);cursor:pointer;font-family:'DM Sans',sans-serif">Limpiar</button>
+    </div>
+    ${items}
+  </div>`;
+};
+
+// ── GOAL PROGRESS ─────────────────────────────────────────────────
+function calcGoalProgress(){
+  const saved = localStorage.getItem('fitapp_ob');
+  if(!saved) return null;
+  const o = JSON.parse(saved);
+  const cur = parseFloat(o.weightKg||0);
+  const goal = parseFloat(o.weightGoalKg||0);
+  const start = parseFloat(o.startWeight || o.weightKg || 0);
+  if(!cur || !goal || cur===goal) return null;
+  const total = Math.abs(goal - start);
+  const done = Math.abs(cur - start);
+  const pct = Math.min(100, Math.round((done/total)*100));
+  const diff = (goal - cur).toFixed(1);
+  return {cur, goal, pct, diff, losing: goal < cur};
+}
+
+// ── COMMUNITY COMMENTS ────────────────────────────────────────────
+let communityComments = [];
+let commentLikes = JSON.parse(localStorage.getItem('fitapp_likes') || '{}');
+
+async function loadComments(){
+  try{
+    const { collection, addDoc, getDocs, orderBy, query, limit, updateDoc, doc, increment } =
+      await import("https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js");
+    const q = query(collection(db,'community_comments'), orderBy('ts','desc'), limit(30));
+    const snap = await getDocs(q);
+    communityComments = snap.docs.map(d=>({id:d.id,...d.data()}));
+    renderComments();
+  }catch(e){ console.log('Comments error:',e); }
+}
+
+function renderComments(){
+  const el = document.getElementById('communityComments');
+  if(!el) return;
+  if(communityComments.length===0){
+    el.innerHTML='<div style="text-align:center;padding:20px;color:var(--t3);font-size:13px">Sé el primero en comentar 🌟</div>';
+    return;
+  }
+  el.innerHTML = communityComments.map(c=>{
+    const initials = (c.name||'?').split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+    const liked = commentLikes[c.id];
+    const timeStr = c.ts ? new Date(c.ts).toLocaleDateString('es-PE',{day:'2-digit',month:'short'}) : 'Hoy';
+    return `<div class="comment-card">
+      <div class="comment-header">
+        <div class="comment-avatar">${c.photo?`<img src="${c.photo}" style="width:100%;height:100%;border-radius:50%;object-fit:cover"/>`:initials}</div>
+        <div class="comment-name">${c.name||'Anónimo'}</div>
+        <div class="comment-time">${timeStr}</div>
+      </div>
+      <div class="comment-text">${c.text}</div>
+      <div class="comment-likes">
+        <button class="comment-like-btn${liked?' liked':''}" onclick="likeComment('${c.id}',this)">
+          ${liked?'❤️':'🤍'} ${(c.likes||0)+(liked&&!c._myLike?1:0)}
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+window.likeComment = async (id, btn) => {
+  if(commentLikes[id]) return;
+  commentLikes[id] = true;
+  localStorage.setItem('fitapp_likes', JSON.stringify(commentLikes));
+  btn.classList.add('liked');
+  btn.innerHTML = '❤️ ' + (parseInt(btn.textContent.trim().split(' ')[1]||0) + 1);
+  try{
+    const { doc, updateDoc, increment } = await import("https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js");
+    await updateDoc(doc(db,'community_comments',id), {likes: increment(1)});
+  }catch(e){}
+};
+
+window.postComment = async () => {
+  const input = document.getElementById('communityInput');
+  const text = (input?.value||'').trim();
+  if(!text){ alert('Escribe algo antes de publicar'); return; }
+  if(text.length < 3){ alert('El comentario es muy corto'); return; }
+  const name = currentUser?.displayName || 'Atleta Anónimo';
+  const photo = currentUser?.photoURL || null;
+  const newComment = {text, name, photo, likes:0, ts: new Date().toISOString()};
+  // Show optimistically
+  communityComments.unshift({id:'tmp_'+Date.now(),...newComment});
+  renderComments();
+  if(input) input.value='';
+  // Save to Firestore
+  try{
+    const { collection, addDoc } = await import("https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js");
+    await addDoc(collection(db,'community_comments'), newComment);
+    addNotif('💬 Publicaste un comentario en la comunidad');
+  }catch(e){
+    // Offline — still shows locally
+    console.log('Offline, saved locally');
+  }
+};
+
+// ── EXPOSE ────────────────────────────────────────────────────────
+window.renderTestPage=renderTestPage;
+window.renderTestList=renderTestList;
+window.loadComments=loadComments;
 </script>
 </body>
 </html>
