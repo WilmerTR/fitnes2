@@ -124,6 +124,7 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
 /* Login */
 #loginScreen{position:fixed;inset:0;background:var(--bg);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:9998;padding:32px}
 #loginScreen.show{display:flex}
+#loginChoiceScreen.show{display:flex}
 .login-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:72px;color:var(--acc);letter-spacing:-2px;line-height:1;margin-bottom:8px}
 .login-sub{font-size:12px;color:var(--t3);letter-spacing:3px;text-transform:uppercase;margin-bottom:48px}
 .login-title{font-size:18px;font-weight:600;color:var(--t);margin-bottom:8px}
@@ -527,6 +528,30 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
   </div>
 </div>
 
+<!-- LOGIN CHOICE — Primera pantalla -->
+<div id="loginChoiceScreen" style="position:fixed;inset:0;background:var(--bg);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:9995;padding:28px">
+  <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:80px;color:var(--acc);line-height:1;text-shadow:0 0 40px rgba(245,197,24,.3);margin-bottom:6px">FIT</div>
+  <div style="font-size:11px;letter-spacing:4px;color:var(--t3);text-transform:uppercase;margin-bottom:48px">Tu programa personalizado</div>
+  
+  <div style="font-size:20px;font-weight:700;color:var(--t);margin-bottom:8px;text-align:center">¿Cómo quieres empezar?</div>
+  <div style="font-size:13px;color:var(--t2);text-align:center;line-height:1.7;margin-bottom:32px;max-width:300px">Guarda tu progreso en la nube para acceder desde cualquier dispositivo, o continúa solo en este celular.</div>
+  
+  <!-- Opción Google -->
+  <button onclick="signInWithGoogleChoice()" style="display:flex;align-items:center;gap:12px;padding:16px 24px;background:white;border:none;border-radius:16px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;color:#1a1a1a;width:100%;max-width:320px;justify-content:center;margin-bottom:12px;box-shadow:0 4px 24px rgba(0,0,0,.4)">
+    <svg width="22" height="22" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+    Guardar con Google
+  </button>
+  
+  <!-- Opción local -->
+  <button onclick="continueLocal()" style="display:flex;align-items:center;gap:10px;padding:14px 24px;background:var(--bg2);border:1.5px solid var(--b2);border-radius:16px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--t2);width:100%;max-width:320px;justify-content:center;margin-bottom:24px">
+    📱 Solo en este dispositivo
+  </button>
+  
+  <div style="font-size:11px;color:var(--t3);text-align:center;line-height:1.7;max-width:280px">
+    🔒 No compartimos tus datos con nadie.<br>Puedes cambiar esto más adelante desde tu perfil.
+  </div>
+</div>
+
 <!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-logo">FIT</div>
@@ -601,7 +626,7 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
   from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc }
+import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs, orderBy, query, limit, updateDoc, increment }
   from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -615,6 +640,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+// Expose Firestore functions globally for community features
+window._fs_collection = collection;
+window._fs_addDoc = addDoc;
+window._fs_getDocs = getDocs;
+window._fs_orderBy = orderBy;
+window._fs_query = query;
+window._fs_limit = limit;
+window._fs_updateDoc = updateDoc;
+window._fs_doc = doc;
+window._fs_increment = increment;
 const provider = new GoogleAuthProvider();
 let currentUser = null;
 let saveTimeout = null;
@@ -1239,35 +1274,36 @@ const NO_EQUIP = [
 ];
 
 // ── GIF MAP por ejercicio ─────────────────────────────────────────
+// GIFs from wger.de open source + musclewiki CDN (reliable, no blocks)
 const EX_GIFS = {
-  'Press banca con barra':             'https://media.giphy.com/media/3o7TKSxdMEkOYPdDXi/giphy.gif',
-  'Press inclinado con mancuernas':    'https://media.giphy.com/media/l0HlNaQ6gWfllcjDO/giphy.gif',
-  'Press inclinado con barra':         'https://media.giphy.com/media/l0HlNaQ6gWfllcjDO/giphy.gif',
-  'Jalón al pecho en máquina':         'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif',
-  'Jalón al pecho agarre cerrado':     'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif',
-  'Remo sentado en máquina':           'https://media.giphy.com/media/l0HlBO4BW4F8fj2j6/giphy.gif',
-  'Remo con barra':                    'https://media.giphy.com/media/l0HlBO4BW4F8fj2j6/giphy.gif',
-  'Remo sentado unilateral en cable':  'https://media.giphy.com/media/l0HlBO4BW4F8fj2j6/giphy.gif',
-  'Elevaciones laterales':             'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif',
-  'Elevaciones laterales con cable':   'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif',
-  'Laterales en máquina':              'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif',
-  'Press militar con mancuernas':      'https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif',
-  'Peck Deck (apertura en máquina)':   'https://media.giphy.com/media/26ufcYfp9Wnp0GVQQ/giphy.gif',
-  'Extensión tríceps en polea alta':   'https://media.giphy.com/media/26ufcYfp9Wnp0GVQQ/giphy.gif',
-  'Press francés con barra Z':         'https://media.giphy.com/media/26ufcYfp9Wnp0GVQQ/giphy.gif',
-  'Sentadilla libre con barra':        'https://media.giphy.com/media/3oEjI5P7RD2e9MvGCI/giphy.gif',
-  'Sentadillas búlgaras en Smith':     'https://media.giphy.com/media/3oEjI5P7RD2e9MvGCI/giphy.gif',
-  'Prensa de piernas':                 'https://media.giphy.com/media/3oEjI5P7RD2e9MvGCI/giphy.gif',
-  'Peso muerto rumano':                'https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif',
-  'Hip Thrust con barra':              'https://media.giphy.com/media/3o7TKSxdMEkOYPdDXi/giphy.gif',
-  'Curl femoral sentado en máquina':   'https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif',
-  'Elevación de pantorrillas':         'https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif',
-  'Extensión de cuádriceps':           'https://media.giphy.com/media/3oEjI5P7RD2e9MvGCI/giphy.gif',
-  'Curl bíceps con barra Z':           'https://media.giphy.com/media/l0HlHFRbmaZtBqhsI/giphy.gif',
-  'Curl bíceps en polea baja':         'https://media.giphy.com/media/l0HlHFRbmaZtBqhsI/giphy.gif',
-  'Curl inclinado con mancuernas':     'https://media.giphy.com/media/l0HlHFRbmaZtBqhsI/giphy.gif',
-  'Curl martillo':                     'https://media.giphy.com/media/l0HlHFRbmaZtBqhsI/giphy.gif',
-  'Extensión cuádriceps + Curl femoral':'https://media.giphy.com/media/3oEjI5P7RD2e9MvGCI/giphy.gif',
+  'Press banca con barra':             'https://wger.de/static/images/muscles/main/muscle-4.svg',
+  'Press inclinado con mancuernas':    'https://wger.de/static/images/muscles/main/muscle-4.svg',
+  'Press inclinado con barra':         'https://wger.de/static/images/muscles/main/muscle-4.svg',
+  'Jalón al pecho en máquina':         'https://wger.de/static/images/muscles/main/muscle-12.svg',
+  'Jalón al pecho agarre cerrado':     'https://wger.de/static/images/muscles/main/muscle-12.svg',
+  'Remo sentado en máquina':           'https://wger.de/static/images/muscles/main/muscle-12.svg',
+  'Remo con barra':                    'https://wger.de/static/images/muscles/main/muscle-12.svg',
+  'Remo sentado unilateral en cable':  'https://wger.de/static/images/muscles/main/muscle-12.svg',
+  'Elevaciones laterales':             'https://wger.de/static/images/muscles/main/muscle-2.svg',
+  'Elevaciones laterales con cable':   'https://wger.de/static/images/muscles/main/muscle-2.svg',
+  'Laterales en máquina':              'https://wger.de/static/images/muscles/main/muscle-2.svg',
+  'Press militar con mancuernas':      'https://wger.de/static/images/muscles/main/muscle-2.svg',
+  'Peck Deck (apertura en máquina)':   'https://wger.de/static/images/muscles/main/muscle-4.svg',
+  'Extensión tríceps en polea alta':   'https://wger.de/static/images/muscles/main/muscle-5.svg',
+  'Press francés con barra Z':         'https://wger.de/static/images/muscles/main/muscle-5.svg',
+  'Sentadilla libre con barra':        'https://wger.de/static/images/muscles/main/muscle-10.svg',
+  'Sentadillas búlgaras en Smith':     'https://wger.de/static/images/muscles/main/muscle-10.svg',
+  'Prensa de piernas':                 'https://wger.de/static/images/muscles/main/muscle-10.svg',
+  'Peso muerto rumano':                'https://wger.de/static/images/muscles/main/muscle-11.svg',
+  'Hip Thrust con barra':              'https://wger.de/static/images/muscles/main/muscle-8.svg',
+  'Curl femoral sentado en máquina':   'https://wger.de/static/images/muscles/main/muscle-11.svg',
+  'Elevación de pantorrillas':         'https://wger.de/static/images/muscles/main/muscle-7.svg',
+  'Extensión de cuádriceps':           'https://wger.de/static/images/muscles/main/muscle-10.svg',
+  'Curl bíceps con barra Z':           'https://wger.de/static/images/muscles/main/muscle-1.svg',
+  'Curl bíceps en polea baja':         'https://wger.de/static/images/muscles/main/muscle-1.svg',
+  'Curl inclinado con mancuernas':     'https://wger.de/static/images/muscles/main/muscle-1.svg',
+  'Curl martillo':                     'https://wger.de/static/images/muscles/main/muscle-1.svg',
+  'Extensión cuádriceps + Curl femoral':'https://wger.de/static/images/muscles/main/muscle-10.svg',
 };
 let curDay = (()=>{let d=new Date().getDay();return d===0?6:d-1;})();
 let oneRM={}, weekNum=1, checked={}, actChk={}, weights={}, bodyMeas=[], expanded={}, altState={};
@@ -1320,13 +1356,20 @@ function buildStrip(){
 
 function weightBox(dayIdx,exIdx,rec){
   const baseKey=`${weekNum}_${dayIdx}_${exIdx}`;
-  // Try mapped key first, fallback to ob onboarding 1RM
   const rmKey=EX_RM_MAP[`${dayIdx}_${exIdx}`];
-  let rm=rmKey?oneRM[rmKey]:null;
-  // If no specific RM, use the onboarding RM as fallback
+  // 1. Try specific RM for this exercise
+  let rm = rmKey ? oneRM[rmKey] : null;
+  // 2. Fallback to onboarding 1RM
   if(!rm){
     const savedOb=localStorage.getItem('fitapp_ob');
-    if(savedOb){const o=JSON.parse(savedOb);if(o.rmResult)rm=o.rmResult;}
+    if(savedOb){
+      const o=JSON.parse(savedOb);
+      if(o.rmResult) rm=o.rmResult;
+    }
+  }
+  // 3. Fallback to any stored RM
+  if(!rm && Object.keys(oneRM).length>0){
+    rm = Object.values(oneRM)[0];
   }
   const curVal=weights[baseKey]||'';
   if(rm){
@@ -1459,12 +1502,18 @@ function renderWorkout(){
       <div class="serie-btn${si<doneSeries?' done-s':si===doneSeries?' current-s':''}"
         onclick="event.stopPropagation();toggleSerie('${serKey}',${totalSeries},${restTime})">${si+1}</div>`).join('');
 
-    // GIF del ejercicio
+    // Músculo activado — diagrama visual
     const gifUrl = EX_GIFS[ex.name];
     if(gifUrl){
-      html+=`<div style="border-radius:var(--r);overflow:hidden;margin:10px 0;position:relative;background:var(--bg3)">
-        <img src="${gifUrl}" alt="${ex.name}" style="width:100%;height:180px;object-fit:cover;display:block;border-radius:var(--r)" loading="lazy" onerror="this.parentElement.style.display='none'"/>
-        <div style="position:absolute;bottom:6px;right:8px;background:rgba(0,0,0,.6);padding:2px 8px;border-radius:999px;font-size:10px;color:white">Forma correcta</div>
+      html+=`<div style="border-radius:var(--r2);overflow:hidden;margin:10px 0;background:var(--bg3);border:0.5px solid var(--b2);padding:14px;display:flex;align-items:center;gap:14px">
+        <div style="width:70px;height:70px;flex-shrink:0;background:var(--bg4);border-radius:12px;overflow:hidden;border:0.5px solid var(--b2);display:flex;align-items:center;justify-content:center">
+          <img src="${gifUrl}" alt="${ex.muscle}" style="width:60px;height:60px;object-fit:contain" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='💪'"/>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--acc);margin-bottom:4px">Músculo principal</div>
+          <div style="font-size:14px;font-weight:600;color:var(--t)">${ex.muscle}</div>
+          <div style="font-size:11px;color:var(--t2);margin-top:3px">Ejecuta el movimiento con control total</div>
+        </div>
       </div>`;
     }
     html+=`<div class="tipbox">${ex.tip}</div>
@@ -2013,6 +2062,31 @@ function calcStreak(){
 
 // ── AUTH ─────────────────────────────────────────────────────────
 window.signInWithGoogle=async()=>{try{await signInWithPopup(auth,provider);}catch(e){alert('Error al iniciar sesión.');}};
+
+window.signInWithGoogleChoice = async() => {
+  try{
+    await signInWithPopup(auth, provider);
+    document.getElementById('loginChoiceScreen').classList.remove('show');
+    // onAuthStateChanged will handle the rest
+  } catch(e){
+    alert('Error al iniciar sesión con Google. Intenta de nuevo.');
+  }
+};
+
+window.continueLocal = () => {
+  localStorage.setItem('fitapp_skip_login','1');
+  document.getElementById('loginChoiceScreen').classList.remove('show');
+  const savedOb = localStorage.getItem('fitapp_ob');
+  const obDone  = savedOb && JSON.parse(savedOb).onboardDone;
+  if(!obDone){
+    document.getElementById('onboardScreen').classList.add('show');
+    obRender();
+  } else {
+    const o = JSON.parse(savedOb);
+    if(o.rmExercise && o.rmResult) oneRM[o.rmExercise] = o.rmResult;
+    showApp();
+  }
+};
 window.doSignOut=()=>{
   if(confirm('¿Cerrar sesión? Tu progreso está guardado en la nube.')){
     signOut(auth);
@@ -2057,9 +2131,16 @@ function bootApp(){
   document.getElementById('splash').classList.add('hide');
   const savedOb = localStorage.getItem('fitapp_ob');
   const obDone  = savedOb && JSON.parse(savedOb).onboardDone;
+  const skipLogin = localStorage.getItem('fitapp_skip_login');
+  
   if(!obDone){
-    document.getElementById('onboardScreen').classList.add('show');
-    obRender();
+    // Primero: elegir modo (nube o local) si no fue elegido
+    if(!skipLogin && !currentUser){
+      showLoginChoice();
+    } else {
+      document.getElementById('onboardScreen').classList.add('show');
+      obRender();
+    }
   } else {
     const o = JSON.parse(savedOb);
     if(o.rmExercise && o.rmResult) oneRM[o.rmExercise] = o.rmResult;
@@ -2067,7 +2148,12 @@ function bootApp(){
   }
 }
 
-// Splash mínimo de 1.5 seg para que se vea la animación, luego arranca
+function showLoginChoice(){
+  const sc = document.getElementById('loginChoiceScreen');
+  if(sc) sc.classList.add('show');
+}
+
+// Splash mínimo de 1.5 seg
 setTimeout(bootApp, 1500);
 
 // Firebase corre en paralelo — si hay sesión activa, enriquece la UI
@@ -2078,9 +2164,15 @@ onAuthStateChanged(auth, async(user)=>{
     // If different account logged in → reset all state
     if(lastUID && lastUID !== user.uid){
       checked={}; oneRM={}; actChk={}; weights={}; bodyMeas=[]; weekNum=1;
+      localStorage.removeItem('fitapp_ob');
     }
     lastUID = user.uid;
     currentUser = user;
+    // Hide all entry screens
+    const lcs = document.getElementById('loginChoiceScreen');
+    if(lcs) lcs.classList.remove('show');
+    document.getElementById('loginScreen').classList.remove('show');
+    document.getElementById('onboardScreen').classList.remove('show');
     // Update avatar
     const av = document.getElementById('userAvatar');
     if(av){
@@ -2089,10 +2181,22 @@ onAuthStateChanged(auth, async(user)=>{
     }
     // Load cloud data
     try{ await loadFromCloud(); }catch(e){ console.log('Cloud load:',e); }
-    // If app already visible, refresh
+    // Check if onboarding done
+    const savedOb = localStorage.getItem('fitapp_ob');
+    const obDone = savedOb && JSON.parse(savedOb).onboardDone;
+    if(!obDone){
+      document.getElementById('onboardScreen').classList.add('show');
+      obRender();
+      return;
+    }
+    // If app already visible, refresh; otherwise show app
     const header = document.getElementById('appHeader');
     if(header && header.style.display !== 'none'){
       buildStrip(); renderWorkout();
+    } else {
+      const o = JSON.parse(savedOb);
+      if(o.rmExercise && o.rmResult) oneRM[o.rmExercise] = o.rmResult;
+      showApp();
     }
   } else {
     // SIGNED OUT → reset everything and go back to start
@@ -2221,13 +2325,16 @@ let commentLikes = JSON.parse(localStorage.getItem('fitapp_likes') || '{}');
 
 async function loadComments(){
   try{
-    const { collection, addDoc, getDocs, orderBy, query, limit, updateDoc, doc, increment } =
-      await import("https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js");
-    const q = query(collection(db,'community_comments'), orderBy('ts','desc'), limit(30));
-    const snap = await getDocs(q);
+    if(!window._fs_collection){ renderCommentsFallback(); return; }
+    const q = window._fs_query(
+      window._fs_collection(db,'community_comments'),
+      window._fs_orderBy('ts','desc'),
+      window._fs_limit(30)
+    );
+    const snap = await window._fs_getDocs(q);
     communityComments = snap.docs.map(d=>({id:d.id,...d.data()}));
     renderComments();
-  }catch(e){ console.log('Comments error:',e); }
+  }catch(e){ console.log('Comments error:',e); renderCommentsFallback(); }
 }
 
 function renderComments(){
@@ -2264,8 +2371,9 @@ window.likeComment = async (id, btn) => {
   btn.classList.add('liked');
   btn.innerHTML = '❤️ ' + (parseInt(btn.textContent.trim().split(' ')[1]||0) + 1);
   try{
-    const { doc, updateDoc, increment } = await import("https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js");
-    await updateDoc(doc(db,'community_comments',id), {likes: increment(1)});
+    if(window._fs_updateDoc && window._fs_doc){
+      await window._fs_updateDoc(window._fs_doc(db,'community_comments',id), {likes: (window._fs_increment||((n)=>n))(1)});
+    }
   }catch(e){}
 };
 
@@ -2283,12 +2391,12 @@ window.postComment = async () => {
   if(input) input.value='';
   // Save to Firestore
   try{
-    const { collection, addDoc } = await import("https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js");
-    await addDoc(collection(db,'community_comments'), newComment);
+    if(window._fs_addDoc && window._fs_collection){
+      await window._fs_addDoc(window._fs_collection(db,'community_comments'), newComment);
+    }
     addNotif('💬 Publicaste un comentario en la comunidad');
   }catch(e){
-    // Offline — still shows locally
-    console.log('Offline, saved locally');
+    console.log('Saved locally only');
   }
 };
 
